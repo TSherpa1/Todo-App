@@ -10,6 +10,8 @@ export const TodoProvider = ({ children }) => {
     setTodos(newTodos);
   };
 
+  console.log(todos);
+
   return (
     <TodoContext.Provider value={{ todos, addTodo }}>
       {children}
