@@ -3,6 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { TodoContext } from '../../context/todoContext';
 import { SubTaskList } from '../';
 import { uid } from 'uid';
+import {
+  TodoFormContainer,
+  TodoForm,
+  EditTaskNameContainer,
+  EditPriorityContainer,
+  EditComplexityContainer,
+  RadioBtnContainer,
+} from './AddTodoForm.styles';
 
 const AddTodoForm = () => {
   const [todoName, setTodoName] = useState('');
@@ -22,16 +30,26 @@ const AddTodoForm = () => {
   const createTodo = () => {
     const newTodo = {
       id: uid(),
-      todoName: todoName,
+      todoName,
       isComplete: false,
-      priority: priority,
-      complexity: complexity,
-      dueDate: dueDate,
-      time: time,
-      subTask: subTasks,
+      priority,
+      complexity,
+      dueDate,
+      time,
+      subTasks: subTasks,
       tags: tags,
     };
+    //linking subTasks to todo via todo id
+    newTodo.subTasks = assignTodoForSubTask(newTodo.subTasks, newTodo.id);
     return newTodo;
+  };
+
+  const assignTodoForSubTask = (subTasks, id) => {
+    console.log('subtasks', subTasks);
+    subTasks.forEach((subTask) => {
+      subTask.taskId = id;
+    });
+    return subTasks;
   };
 
   const clearForm = () => {
@@ -69,13 +87,14 @@ const AddTodoForm = () => {
     addTodo(newTodo);
     clearForm();
     navigate('/');
+    console.log(newTodo);
   };
 
   // console.log('priority', priority);
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div className="edit-task-name-container">
+    <TodoFormContainer className="todo-form-container">
+      <TodoForm onSubmit={handleSubmit}>
+        <EditTaskNameContainer className="edit-task-name-container">
           <label htmlFor="task-name">Task Name</label>
           <input
             type="text"
@@ -85,11 +104,11 @@ const AddTodoForm = () => {
               setTodoName(event.target.value);
             }}
           />
-        </div>
-        <div className="edit-priority-container">
+        </EditTaskNameContainer>
+        <EditPriorityContainer className="edit-priority-container">
           <label htmlFor="priority">Select Priority Level</label>
           {levels.map((level) => (
-            <div className="radio-btn" key={level}>
+            <RadioBtnContainer className="radio-btn" key={level}>
               <label htmlFor={level}>{level}</label>
               <input
                 type="radio"
@@ -100,10 +119,10 @@ const AddTodoForm = () => {
                   setPriority(event.target.value);
                 }}
               />
-            </div>
+            </RadioBtnContainer>
           ))}
-        </div>
-        <div className="edit-complexity-container">
+        </EditPriorityContainer>
+        <EditComplexityContainer className="edit-complexity-container">
           <label htmlFor="complexity">Select Complexity Level</label>
           {levels.map((level) => (
             <div className="radio-btn" key={level}>
@@ -120,7 +139,7 @@ const AddTodoForm = () => {
               />
             </div>
           ))}
-        </div>
+        </EditComplexityContainer>
         <div className="edit-time-date-container">
           <>
             <label htmlFor="due-date">Select Due Date</label>
@@ -171,8 +190,8 @@ const AddTodoForm = () => {
             Save Task
           </button>
         </div>
-      </form>
-    </>
+      </TodoForm>
+    </TodoFormContainer>
   );
 };
 

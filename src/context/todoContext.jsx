@@ -10,10 +10,13 @@ export const TodoProvider = ({ children }) => {
     setTodos(newTodos);
   };
 
-  console.log(todos);
+  const removeTodo = (todo) => {
+    const newTodos = todos.filter((todoElement) => todoElement.id !== todo.id);
+    setTodos(newTodos);
+  };
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo }}>
+    <TodoContext.Provider value={{ todos, addTodo, removeTodo }}>
       {children}
     </TodoContext.Provider>
   );
