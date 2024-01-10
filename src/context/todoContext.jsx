@@ -15,8 +15,20 @@ export const TodoProvider = ({ children }) => {
     setTodos(newTodos);
   };
 
+  const toggleComplete = (todo) => {
+    const newTodos = todos.map((todoElement) => {
+      if (todoElement.id === todo.id) {
+        todoElement.completed = !todoElement.completed;
+      }
+      return todoElement;
+    });
+    setTodos(newTodos);
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo, removeTodo }}>
+    <TodoContext.Provider
+      value={{ todos, addTodo, removeTodo, toggleComplete }}
+    >
       {children}
     </TodoContext.Provider>
   );

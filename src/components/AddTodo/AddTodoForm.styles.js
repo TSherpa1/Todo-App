@@ -19,14 +19,27 @@ export const TodoForm = styled.form`
 export const EditTaskNameContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
-export const EditPriorityContainer = styled.div`
+export const EditTaskInput = styled.input`
+  border-radius: 30px;
+  border: none;
+  width: 290%;
+  height: 50px;
+`;
+
+export const EditPriorityContainer = styled.div``;
+
+export const EditComplexityContainer = styled.div``;
+
+export const RadioBtnContainer = styled.div`
   display: flex;
+  gap: 10px;
 `;
 
-export const EditComplexityContainer = styled.div`
+export const RadioBtnInput = styled.input`
   display: flex;
+  height: 30px;
+  width: 30px;
 `;
-
-export const RadioBtnContainer = styled.div``;
