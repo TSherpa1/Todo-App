@@ -1,4 +1,4 @@
-import { SubTask } from '../../';
+import { SubTask } from '../';
 
 const SubTaskList = ({ subTasks, handleRemoveSubTask }) => {
   return (

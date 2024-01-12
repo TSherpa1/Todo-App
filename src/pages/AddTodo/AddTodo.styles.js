@@ -12,6 +12,7 @@ export const AddTodoHeaderContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+  width: 70%;
 `;
 
 export const BackToHomeBtn = styled.button`
@@ -22,7 +23,10 @@ export const BackToHomeBtn = styled.button`
   padding: 10px;
   border: none;
   position: relative;
-  right: 75%;
+  right: 13%;
 `;
 
-export const AddTodoHeader = styled.h3``;
+export const AddTodoHeader = styled.h3`
+  // position: relative;
+  // right: 1%;
+`;

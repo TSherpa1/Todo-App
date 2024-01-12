@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { TodoList, TodoSearchForm } from '../../components';
+import { TodoList, TodoSearchForm } from '../../components/Todos';
 
 const Todos = () => {
   return (
