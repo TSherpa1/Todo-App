@@ -1,6 +1,10 @@
 export { default as TodoFormComponent } from './TodoFormComponent';
-export { default as SubTaskList } from './SubTasks/SubTaskList';
-export { default as SubTask } from './SubTasks/SubTask';
+export { default as SubTaskList } from './FormSubTasks/FormSubTaskList';
+export { default as SubTask } from './FormSubTasks/FormSubTask';
+export { default as FormSubTask } from './FormSubTasks/FormSubTask';
+export { default as FormSubTaskInput } from './FormSubTasks/FormSubTaskInput';
 export { default as FormHeader } from './FormHeader/FormHeader';
 export { default as FormTaskInput } from './FormTaskInput/FormTaskInput';
 export { default as FormPriorityComplexity } from './FormPriorityComplexity/FormPriorityComplexity';
+export { default as FormTimeDate } from './FormTimeDate/FormTimeDate';
+export { default as FormTagsInput } from './FormTags/FormTagsInput';

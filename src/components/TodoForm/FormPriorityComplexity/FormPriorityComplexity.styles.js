@@ -3,21 +3,19 @@ import styled from 'styled-components';
 export const PriorityComplexityContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   width: 100%;
 `;
 
 export const PriorityComplexityLabel = styled.label`
-  font-size: 20px;
+  font-size: 19px;
   margin-bottom: 15px;
-  // margin-left: 10px;
-  // position: relative;
-  // right: 10%;
 `;
 
 export const RadioBtnContainer = styled.div`
   display: flex;
-  gap: 25px;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const RadioBtnInput = styled.button`

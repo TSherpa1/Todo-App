@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const TodoFormHeaderContainer = styled.div`
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   // margin-top: 50px;
-  // width: 70%;
+  width: 100%;
+  position: relative;
 `;
 
 export const BackToHomeBtn = styled.button`
@@ -15,11 +16,10 @@ export const BackToHomeBtn = styled.button`
   border-radius: 50px;
   padding: 10px;
   border: none;
-  position: relative;
-  right: 142%;
-  top: 50%;
+  position: absolute;
+  right: 93%;
 `;
 
-export const TodoFormHeaderText = styled.h2`
-  font-size: 50px:
+export const TodoFormHeaderText = styled.h3`
+  font-size: 25px;
 `;

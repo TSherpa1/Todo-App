@@ -1,21 +1,17 @@
 import styled from 'styled-components';
-
-export const TaskInputContainer = styled.div`
+export const TagsInputContainer = styled.div`
   display: flex;
   flex-direction: column;
   // align-items: center;
   width: 100%;
 `;
 
-export const TaskInputLabel = styled.label`
+export const TagsLabel = styled.label`
   font-size: 19px;
   margin-bottom: 15px;
-  // margin-left: 10px;
-  // position: relative;
-  // right: 170px;
 `;
 
-export const TaskTextInput = styled.input`
+export const TagsTextInput = styled.input`
   border-radius: 30px;
   border: none;
   width: 94%;

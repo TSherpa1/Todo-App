@@ -1,10 +1,10 @@
-import { SubTask } from '../';
+import { FormSubTask } from '..';
 
-const SubTaskList = ({ subTasks, handleRemoveSubTask }) => {
+const FormSubTaskList = ({ subTasks, handleRemoveSubTask }) => {
   return (
     <div className="sub-task-list">
       {subTasks.map((subTask) => (
-        <SubTask
+        <FormSubTask
           key={subTask.id}
           subTask={subTask}
           handleRemoveSubtask={handleRemoveSubTask}
@@ -14,4 +14,4 @@ const SubTaskList = ({ subTasks, handleRemoveSubTask }) => {
   );
 };
 
-export default SubTaskList;
+export default FormSubTaskList;

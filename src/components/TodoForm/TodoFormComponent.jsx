@@ -1,23 +1,23 @@
-import { useState, useContext, Fragment, useRef } from 'react';
+import { useState, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TodoContext } from '../../context/todoContext';
-import { SubTaskList } from '../TodoForm';
 import { uid } from 'uid';
+import { TodoFormContainer, TodoForm } from './TodoFormComponent.styles';
 import {
-  TodoFormContainer,
-  TodoForm,
-  AddFormInputContainer,
-  AddFormLabel,
-  AddFormTextInput,
-} from './TodoFormComponent.styles';
-import { FormHeader, FormTaskInput, FormPriorityComplexity } from './';
+  FormHeader,
+  FormTaskInput,
+  FormPriorityComplexity,
+  FormTimeDate,
+  FormSubTaskInput,
+  FormTagsInput,
+} from './';
 
 const TodoFormComponent = () => {
   const [taskName, setTaskName] = useState('');
   const [priority, setPriority] = useState(null);
   const [complexity, setComplexity] = useState(null);
-  const [dueDate, setDueDate] = useState(null);
-  const [time, setTime] = useState(null);
+  const [dueDate, setDueDate] = useState('');
+  const [time, setTime] = useState('');
   const [subTaskInput, setSubTaskInput] = useState('');
   const [subTasks, setSubTasks] = useState([]);
   const [tagsInput, setTagsInput] = useState('');
@@ -38,7 +38,7 @@ const TodoFormComponent = () => {
       complexity,
       dueDate,
       time,
-      subTasks: subTasks,
+      subTasks,
       tags: convertTags(),
     };
     return newTask;
@@ -58,8 +58,8 @@ const TodoFormComponent = () => {
   };
 
   const convertTags = () => {
-    const tags = tagsInput.split(',').map((tag) => tag.trim());
-    return tags;
+    const convertedTags = tagsInput.split(',').map((tag) => tag.trim());
+    return convertedTags;
   };
 
   const handleAddSubtask = (event) => {
@@ -74,16 +74,16 @@ const TodoFormComponent = () => {
     setSubTaskInput('');
   };
 
-  const handleEditSubTask = (subTaskName, id) => {
-    const newSubTasks = subTasks.map((subTask) => {
-      if (subTask.id === id) {
-        subTask.name = subTaskName;
-      }
-      return subTask;
-    });
-    setSubTasks(newSubTasks);
-    console.log('add form subTasks', subTasks);
-  };
+  // const handleEditSubTask = (subTaskName, id) => {
+  //   const newSubTasks = subTasks.map((subTask) => {
+  //     if (subTask.id === id) {
+  //       subTask.name = subTaskName;
+  //     }
+  //     return subTask;
+  //   });
+  //   setSubTasks(newSubTasks);
+  //   console.log('add form subTasks', subTasks);
+  // };
 
   const handleRemoveSubTask = (event, subTask) => {
     event.preventDefault();
@@ -101,6 +101,22 @@ const TodoFormComponent = () => {
   const handleComplexityChange = (event) => {
     event.preventDefault();
     setComplexity(Number(event.target.value));
+  };
+
+  const handleTimeChange = (event) => {
+    setTime(event.target.value);
+  };
+
+  const handleDateChange = (event) => {
+    setDueDate(event.target.value);
+  };
+
+  const handleSubTaskChange = (event) => {
+    setSubTaskInput(event.target.value);
+  };
+
+  const handleTagsChange = (event) => {
+    setTagsInput(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -129,63 +145,23 @@ const TodoFormComponent = () => {
           handleChange={handleComplexityChange}
           type="Complexity"
         />
-        <AddFormInputContainer className="edit-time-date-container">
-          <>
-            <AddFormLabel htmlFor="due-date">Select Due Date</AddFormLabel>
-            <input
-              type="date"
-              name="due-date"
-              id="due-date"
-              value={dueDate}
-              onChange={(event) => {
-                setDueDate(event.target.value);
-              }}
-            />
-            <AddFormLabel htmlFor="time">Select Time</AddFormLabel>
-            <input
-              type="time"
-              name="time"
-              id="time"
-              value={time}
-              onChange={(event) => {
-                setTime(event.target.value);
-              }}
-            />
-          </>
-        </AddFormInputContainer>
-        <AddFormInputContainer className="edit-subtask-input-container">
-          <AddFormLabel htmlFor="subtasks">
-            Add Checklist For Subtasks
-          </AddFormLabel>
-          <AddFormTextInput
-            type="text"
-            name="subtask-input"
-            id="subtask-input"
-            value={subTaskInput}
-            onChange={(event) => {
-              setSubTaskInput(event.target.value);
-            }}
-          />
-          <button className="add-subtask" onClick={handleAddSubtask}>
-            Add Subtask
-          </button>
-          <SubTaskList
-            subTasks={subTasks}
-            handleRemoveSubTask={handleRemoveSubTask}
-          />
-        </AddFormInputContainer>
-        <AddFormInputContainer className="edit-tags-container">
-          <AddFormLabel htmlFor="tags">Add Tags</AddFormLabel>
-          <AddFormTextInput
-            type="text"
-            name="tag-input"
-            id="tag-input"
-            value={tagsInput}
-            onChange={(event) => {
-              setTagsInput(event.target.value);
-            }}
-          />
-        </AddFormInputContainer>
+        <FormTimeDate
+          handleTimeChange={handleTimeChange}
+          handleDateChange={handleDateChange}
+          time={time}
+          dueDate={dueDate}
+        />
+        <FormSubTaskInput
+          handleSubTaskChange={handleSubTaskChange}
+          handleAddSubtask={handleAddSubtask}
+          handleRemoveSubTask={handleRemoveSubTask}
+          subTasks={subTasks}
+          subTaskInput={subTaskInput}
+        />
+        <FormTagsInput
+          tagsInput={tagsInput}
+          handleTagsChange={handleTagsChange}
+        />
         <div className="save-task-btn-container">
           <button className="save-task-btn" onClick={handleSubmit}>
             Save Task
