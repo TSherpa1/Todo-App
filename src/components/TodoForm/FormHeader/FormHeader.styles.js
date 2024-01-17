@@ -18,6 +18,9 @@ export const BackToHomeBtn = styled.button`
   border: none;
   position: absolute;
   right: 93%;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const TodoFormHeaderText = styled.h3`

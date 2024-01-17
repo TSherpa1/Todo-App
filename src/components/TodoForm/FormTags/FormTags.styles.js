@@ -4,6 +4,7 @@ export const TagsInputContainer = styled.div`
   flex-direction: column;
   // align-items: center;
   width: 100%;
+  position: relative;
 `;
 
 export const TagsLabel = styled.label`

@@ -18,3 +18,20 @@ export const TodoForm = styled.form`
   gap: 15px;
   position: relative;
 `;
+
+export const SaveTaskBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  font-size: 18px;
+  border: none;
+  width: 110px;
+  height: 55px;
+  background-color: #0f99ff;
+  color: white;
+  padding: 20px 10px;
+  &:hover {
+    cursor: pointer;
+  }
+`;

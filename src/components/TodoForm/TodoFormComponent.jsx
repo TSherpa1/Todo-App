@@ -2,7 +2,11 @@ import { useState, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TodoContext } from '../../context/todoContext';
 import { uid } from 'uid';
-import { TodoFormContainer, TodoForm } from './TodoFormComponent.styles';
+import {
+  TodoFormContainer,
+  TodoForm,
+  SaveTaskBtn,
+} from './TodoFormComponent.styles';
 import {
   FormHeader,
   FormTaskInput,
@@ -64,6 +68,7 @@ const TodoFormComponent = () => {
 
   const handleAddSubtask = (event) => {
     event.preventDefault();
+    console.log('handleSubTaskAdd');
     const newSubTask = {
       name: subTaskInput,
       id: uid(),
@@ -74,19 +79,21 @@ const TodoFormComponent = () => {
     setSubTaskInput('');
   };
 
-  // const handleEditSubTask = (subTaskName, id) => {
-  //   const newSubTasks = subTasks.map((subTask) => {
-  //     if (subTask.id === id) {
-  //       subTask.name = subTaskName;
-  //     }
-  //     return subTask;
-  //   });
-  //   setSubTasks(newSubTasks);
-  //   console.log('add form subTasks', subTasks);
-  // };
+  const handleEditSubTask = (subTaskName, id) => {
+    const newSubTasks = subTasks.map((subTask) => {
+      console.log(subTask.id, id);
+      if (subTask.id === id) {
+        subTask.name = subTaskName;
+      }
+      return subTask;
+    });
+    setSubTasks(newSubTasks);
+  };
 
-  const handleRemoveSubTask = (event, subTask) => {
+  const handleRemoveSubTask = (subTask) => {
     event.preventDefault();
+    console.log('handleSubTaskRemove');
+    console.log(subTask);
     const newSubTasks = subTasks.filter(
       (subTaskElement) => subTaskElement.id !== subTask.id
     );
@@ -112,6 +119,7 @@ const TodoFormComponent = () => {
   };
 
   const handleSubTaskChange = (event) => {
+    console.log('handleSubTaskChange');
     setSubTaskInput(event.target.value);
   };
 
@@ -155,6 +163,7 @@ const TodoFormComponent = () => {
           handleSubTaskChange={handleSubTaskChange}
           handleAddSubtask={handleAddSubtask}
           handleRemoveSubTask={handleRemoveSubTask}
+          handleEditSubTask={handleEditSubTask}
           subTasks={subTasks}
           subTaskInput={subTaskInput}
         />
@@ -163,9 +172,9 @@ const TodoFormComponent = () => {
           handleTagsChange={handleTagsChange}
         />
         <div className="save-task-btn-container">
-          <button className="save-task-btn" onClick={handleSubmit}>
+          <SaveTaskBtn className="save-task-btn" onClick={handleSubmit}>
             Save Task
-          </button>
+          </SaveTaskBtn>
         </div>
       </TodoForm>
     </TodoFormContainer>
