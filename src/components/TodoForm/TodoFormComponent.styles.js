@@ -9,13 +9,12 @@ export const TodoFormContainer = styled.div`
 `;
 
 export const TodoForm = styled.form`
-  height: 80%;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 15px;
+  justify-content: space-evenly;
   position: relative;
 `;
 
@@ -24,10 +23,10 @@ export const SaveTaskBtn = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 30px;
-  font-size: 18px;
+  font-size: 17px;
   border: none;
-  width: 110px;
-  height: 55px;
+  width: 100px;
+  height: 50px;
   background-color: #0f99ff;
   color: white;
   padding: 20px 10px;

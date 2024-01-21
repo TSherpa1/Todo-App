@@ -26,7 +26,8 @@ export const RadioBtnInput = styled.button`
   width: 40px;
   border: none;
   border-radius: 50px;
-  background-color: #deecf6;
+  background-color: ${(props) =>
+    props.selected === props.value ? '#0f99ff' : '#deecf6'};
   &:hover {
     background-color: #0f99ff;
     cursor: pointer;

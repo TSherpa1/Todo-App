@@ -1,4 +1,5 @@
 import { useState, createContext } from 'react';
+import { uid } from 'uid';
 
 export const TodoContext = createContext();
 
@@ -25,9 +26,43 @@ export const TodoProvider = ({ children }) => {
     setTodos(newTodos);
   };
 
+  const addSubTask = (subTaskInput, taskId, subTasks) => {
+    const newSubTask = {
+      name: subTaskInput,
+      id: uid(),
+      taskId,
+    };
+    const newSubTasks = [...subTasks, newSubTask];
+    return newSubTasks;
+  };
+
+  const removeSubTask = (subTask, subTasks) => {
+    const newSubTasks = subTasks.filter(
+      (subTaskElement) => subTaskElement.id !== subTask.id
+    );
+    return newSubTasks;
+  };
+
+  const editSubTask = (id, subTaskName, subTasks) => {
+    const newSubTasks = subTasks.map((subTask) => {
+      if (subTask.id === id) {
+        subTask.name = subTaskName;
+      }
+      return subTask;
+    });
+    return newSubTasks;
+  };
   return (
     <TodoContext.Provider
-      value={{ todos, addTodo, removeTodo, toggleComplete }}
+      value={{
+        todos,
+        addTodo,
+        removeTodo,
+        toggleComplete,
+        addSubTask,
+        removeSubTask,
+        editSubTask,
+      }}
     >
       {children}
     </TodoContext.Provider>

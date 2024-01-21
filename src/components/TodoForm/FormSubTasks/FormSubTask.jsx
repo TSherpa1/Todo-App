@@ -8,7 +8,6 @@ import {
 } from './FormSubTasks.styles';
 
 const FormSubTask = ({ subTask, handleRemoveSubtask, handleEditSubTask }) => {
-  // console.log(subTask);
   const [subTaskName, setSubTaskName] = useState(subTask.name);
   const [isEditing, setIsEditing] = useState(false);
   return (
@@ -29,7 +28,6 @@ const FormSubTask = ({ subTask, handleRemoveSubtask, handleEditSubTask }) => {
         <SubTaskEditBtn
           className="edit-btn"
           onClick={() => {
-            console.log('edited', subTaskName);
             handleEditSubTask(subTaskName, subTask.id);
             setIsEditing(false);
           }}
@@ -53,7 +51,6 @@ const FormSubTask = ({ subTask, handleRemoveSubtask, handleEditSubTask }) => {
         <SubTaskRemoveBtn
           className="remove-btn"
           onClick={() => {
-            console.log(subTask);
             handleRemoveSubtask(subTask);
           }}
         >

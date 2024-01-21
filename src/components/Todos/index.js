@@ -1,4 +1,4 @@
-export { default as TodoItem } from './TodoItem';
-export { default as TodoList } from './TodoList';
-export { default as TodoSearchForm } from './TodoSearchForm';
-export { default as TodoSort } from './TodoSort';
+export { default as TodoItem } from './TodoItem/TodoItem';
+export { default as TodoList } from './TodoList/TodoList';
+export { default as TodoSearchForm } from './TodoSearchForm/TodoSearchForm';
+export { default as TodoSort } from './TodoSort/TodoSort';

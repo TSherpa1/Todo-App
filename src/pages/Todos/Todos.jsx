@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
 import { TodoList, TodoSearchForm } from '../../components/Todos';
+import { TodosContainer, AddNewTaskBtn } from './Todos.styles';
 
 const Todos = () => {
   return (
-    <div className="todos-container">
-      <Link to="/addTodo">Add Todo</Link>
+    <TodosContainer className="todos-container">
       <TodoSearchForm />
       <TodoList />
-    </div>
+      <AddNewTaskBtn>
+        <Link to="/addTodo">+ Add New Task</Link>
+      </AddNewTaskBtn>
+    </TodosContainer>
   );
 };
 

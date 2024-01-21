@@ -27,7 +27,8 @@ const TodoFormComponent = () => {
   const [tagsInput, setTagsInput] = useState('');
   const [tags, setTags] = useState([]);
 
-  const { addTodo } = useContext(TodoContext);
+  const { addTodo, removeSubTask, editSubTask, addSubTask } =
+    useContext(TodoContext);
   const navigate = useNavigate();
 
   //creating a taskId variable prior to creating todo to allow link to subTask via subTask.id
@@ -68,35 +69,19 @@ const TodoFormComponent = () => {
 
   const handleAddSubtask = (event) => {
     event.preventDefault();
-    console.log('handleSubTaskAdd');
-    const newSubTask = {
-      name: subTaskInput,
-      id: uid(),
-      taskId: taskId.current,
-    };
-    const newSubTasks = [...subTasks, newSubTask];
+    const newSubTasks = addSubTask(subTaskInput, taskId, subTasks);
     setSubTasks(newSubTasks);
     setSubTaskInput('');
   };
 
   const handleEditSubTask = (subTaskName, id) => {
-    const newSubTasks = subTasks.map((subTask) => {
-      console.log(subTask.id, id);
-      if (subTask.id === id) {
-        subTask.name = subTaskName;
-      }
-      return subTask;
-    });
+    const newSubTasks = editSubTask(subTaskName, id, subTasks);
     setSubTasks(newSubTasks);
   };
 
   const handleRemoveSubTask = (subTask) => {
     event.preventDefault();
-    console.log('handleSubTaskRemove');
-    console.log(subTask);
-    const newSubTasks = subTasks.filter(
-      (subTaskElement) => subTaskElement.id !== subTask.id
-    );
+    const newSubTasks = removeSubTask(subTask, subTasks);
     setSubTasks(newSubTasks);
   };
 
@@ -119,7 +104,6 @@ const TodoFormComponent = () => {
   };
 
   const handleSubTaskChange = (event) => {
-    console.log('handleSubTaskChange');
     setSubTaskInput(event.target.value);
   };
 
@@ -128,13 +112,11 @@ const TodoFormComponent = () => {
   };
 
   const handleSubmit = (event) => {
-    console.log('handleSubmit ran');
     event.preventDefault();
     const newTask = createTask();
     addTodo(newTask);
     clearForm();
     navigate('/');
-    console.log(newTask);
   };
 
   return (
@@ -148,10 +130,12 @@ const TodoFormComponent = () => {
         <FormPriorityComplexity
           handleChange={handlePriorityChange}
           type="Priority"
+          currentLevel={priority}
         />
         <FormPriorityComplexity
           handleChange={handleComplexityChange}
           type="Complexity"
+          currentLevel={complexity}
         />
         <FormTimeDate
           handleTimeChange={handleTimeChange}
