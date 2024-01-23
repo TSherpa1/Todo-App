@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SearchForm, SearchFormInput } from './TodoSearchForm.styles';
 
 const TodoSearchForm = () => {
   const [taskName, setTaskName] = useState('');
@@ -13,10 +14,15 @@ const TodoSearchForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <SearchForm onSubmit={handleSubmit}>
       <label htmlFor="name">Search</label>
-      <input id="name" type="text" onChange={handleChange} value={taskName} />
-    </form>
+      <SearchFormInput
+        id="name"
+        type="text"
+        onChange={handleChange}
+        value={taskName}
+      />
+    </SearchForm>
   );
 };
 

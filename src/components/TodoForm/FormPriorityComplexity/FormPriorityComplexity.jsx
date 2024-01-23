@@ -9,14 +9,6 @@ import {
 const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const FormPriorityComplexity = ({ handleChange, type, currentLevel }) => {
-  // const [selected, setSelected] = useState(null);
-
-  // const handleClicked = (event, level) => {
-  //   event.preventDefault();
-  //   setSelected(level);
-  //   handleChange();
-  // };
-
   return (
     <PriorityComplexityContainer className={`edit-${type}-container`}>
       <PriorityComplexityLabel htmlFor={type}>
@@ -32,13 +24,6 @@ const FormPriorityComplexity = ({ handleChange, type, currentLevel }) => {
               value={level}
               onClick={handleChange}
               selected={currentLevel}
-
-              // onClick={() => {
-              //   handleChange;
-              //   (level) => setSelected(level);
-              // }}
-              // onClick={() => handleClicked(event, level)}
-              // selected={selected}
             >
               {level}
             </RadioBtnInput>

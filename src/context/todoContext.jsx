@@ -4,7 +4,68 @@ import { uid } from 'uid';
 export const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-  const [todos, setTodos] = useState([]);
+  const dummyData = [
+    {
+      complexity: 7,
+      dueDate: '2021-02-02',
+      id: '9a5402e35',
+      isComplete: false,
+      priority: 2,
+      subTasks: [
+        {
+          id: '2f64ac138168',
+          name: 'run',
+          taskId: { current: 'b3f803558e99' },
+        },
+        {
+          id: '2f64a5c68',
+          name: 'lift weights',
+          taskId: { current: 'b34f58e99' },
+        },
+      ],
+      tags: ['Excercise', 'Physical'],
+      taskName: 'Gym',
+      time: '15:04',
+    },
+    {
+      complexity: 7,
+      dueDate: '2021-02-02',
+      id: '991a54e35',
+      isComplete: false,
+      priority: 2,
+      subTasks: [
+        { id: '2f64ac13868', name: 'run', taskId: { current: 'b3f80558e99' } },
+        {
+          id: '2f64ac68',
+          name: 'lift weights',
+          taskId: { current: 'b3f58e99' },
+        },
+      ],
+      tags: ['Excercise', 'Physical'],
+      taskName: 'Gym',
+      time: '15:04',
+    },
+    {
+      complexity: 7,
+      dueDate: '2021-02-02',
+      id: '991a54025',
+      isComplete: false,
+      priority: 2,
+      subTasks: [
+        { id: '2fc13868', name: 'run', taskId: { current: 'b3f558e99' } },
+        {
+          id: '2f6468',
+          name: 'lift weights',
+          taskId: { current: 'b3fe99' },
+        },
+      ],
+      tags: ['Excercise', 'Physical'],
+      taskName: 'Gym',
+      time: '15:04',
+    },
+  ];
+
+  const [todos, setTodos] = useState(dummyData);
 
   const addTodo = (todo) => {
     const newTodos = [...todos, todo];

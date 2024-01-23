@@ -1,17 +1,18 @@
 import { useContext } from 'react';
 import { TodoContext } from '../../../context/todoContext';
 import { TodoItem } from '..';
+import { ListContainer } from './TodoList.styles';
 
 const TodoList = () => {
   const { todos } = useContext(TodoContext);
 
   console.log('here', todos);
   return (
-    <div className="todo-list">
+    <ListContainer className="todo-list">
       {todos.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
-    </div>
+    </ListContainer>
   );
 };
 
