@@ -17,7 +17,7 @@ export const TaskInputLabel = styled.label`
 
 export const TaskTextInput = styled.input`
   border-radius: 30px;
-  border: none;
+  border: 1px solid lightgray;
   width: 94%;
   height: 35px;
   padding: 10px 20px;

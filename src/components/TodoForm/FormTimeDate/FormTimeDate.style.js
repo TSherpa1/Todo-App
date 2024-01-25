@@ -44,7 +44,7 @@ export const DateLabel = styled.label`
 
 export const FormDateInput = styled.input`
   border-radius: 30px;
-  border: none;
+  border: 1px solid lightgray;
   width: 85%;
   height: 35px;
   position: relative;

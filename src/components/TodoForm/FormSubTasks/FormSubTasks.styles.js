@@ -21,7 +21,7 @@ export const SubTasksInputBtn = styled.div`
 `;
 export const SubTasksInput = styled.input`
   border-radius: 30px;
-  border: none;
+  border: 1px solid lightgray;
   width: 94%;
   height: 35px;
   padding: 10px 20px;

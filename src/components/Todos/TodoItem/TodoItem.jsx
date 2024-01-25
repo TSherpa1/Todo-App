@@ -1,4 +1,4 @@
-import { TodoCard, TodoInfo, TodoBtns } from './TodoItem.styles';
+import { TodoCard, TodoInfo, TodoBtns, TagsContainer } from './TodoItem.styles';
 
 const TodoItem = ({ todo }) => {
   return (
@@ -10,11 +10,12 @@ const TodoItem = ({ todo }) => {
         </p>
         <p className="priority">Priority:{todo.priority}</p>
         <p className="complexity">Complexity:{todo.complexity}</p>
-        <ul>
+
+        <TagsContainer>
           {todo.tags.map((tag) => (
             <li key={tag}>{tag}</li>
           ))}
-        </ul>
+        </TagsContainer>
       </TodoInfo>
       <TodoBtns>
         <button className="edit-todo">Edit</button>

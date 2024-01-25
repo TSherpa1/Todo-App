@@ -1,23 +1,23 @@
 import styled from 'styled-components';
 
 export const TodosContainer = styled.div`
-  width: 600px;
+  padding-top: 50px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  height: 100%;
+  gap: 30px;
 `;
 
 export const AddNewTaskBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
+  border-radius: 35px;
   font-size: 17px;
   border: none;
-  width: 140px;
-  height: 50px;
+  width: 170px;
+  height: 65px;
   background-color: #0f99ff;
   &:hover {
     cursor: pointer;
