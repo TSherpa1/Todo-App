@@ -1,21 +1,21 @@
 import styled from 'styled-components';
 
 export const TodoFormContainer = styled.div`
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 600px;
+  margin: 30px 0px;
 `;
 
 export const TodoForm = styled.form`
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   position: relative;
+  gap: 30px;
 `;
 
 export const SaveTaskBtn = styled.button`
@@ -25,7 +25,7 @@ export const SaveTaskBtn = styled.button`
   border-radius: 30px;
   font-size: 17px;
   border: none;
-  width: 100px;
+  width: 120px;
   height: 50px;
   background-color: #0f99ff;
   color: white;

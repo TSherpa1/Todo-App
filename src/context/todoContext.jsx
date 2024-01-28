@@ -7,65 +7,58 @@ export const TodoProvider = ({ children }) => {
   const dummyData = [
     {
       complexity: 7,
-      dueDate: '2021-02-02',
+      complexityLevel: 'High',
+      dueDate: '2024-02-02',
       id: '9a5402e35',
       isComplete: false,
       priority: 2,
+      priorityLevel: 'Low',
       subTasks: [
         {
           id: '2f64ac138168',
-          name: 'run',
+          name: 'Subtask 1',
           taskId: { current: 'b3f803558e99' },
         },
         {
           id: '2f64a5c68',
-          name: 'lift weights',
+          name: 'Subtask 2',
           taskId: { current: 'b34f58e99' },
         },
       ],
-      tags: ['Excercise', 'Physical'],
-      taskName: 'Gym',
+      tags: ['Tag1', 'Tag2'],
+      taskName: 'Task 1',
       time: '15:04',
     },
     {
       complexity: 7,
-      dueDate: '2021-02-02',
+      complexityLevel: 'Low',
+      dueDate: '2024-05-03',
       id: '991a54e35',
       isComplete: false,
-      priority: 2,
+      priority: 5,
+      priorityLevel: 'Medium',
       subTasks: [
-        { id: '2f64ac13868', name: 'run', taskId: { current: 'b3f80558e99' } },
+        {
+          id: '2f64ac13868',
+          name: 'Subtask 1',
+          taskId: { current: 'b3f80558e99' },
+        },
         {
           id: '2f64ac68',
-          name: 'lift weights',
+          name: 'Subtask 2',
           taskId: { current: 'b3f58e99' },
         },
       ],
-      tags: ['Excercise', 'Physical'],
-      taskName: 'Gym',
-      time: '15:04',
-    },
-    {
-      complexity: 7,
-      dueDate: '2021-02-02',
-      id: '991a54025',
-      isComplete: false,
-      priority: 2,
-      subTasks: [
-        { id: '2fc13868', name: 'run', taskId: { current: 'b3f558e99' } },
-        {
-          id: '2f6468',
-          name: 'lift weights',
-          taskId: { current: 'b3fe99' },
-        },
-      ],
-      tags: ['Excercise', 'Physical'],
-      taskName: 'Gym',
+      tags: ['Tag1', 'Tag2'],
+      taskName: 'Task 2',
       time: '15:04',
     },
   ];
 
   const [todos, setTodos] = useState(dummyData);
+  const [todosSubset, setTodosSubset] = useState(dummyData);
+
+  // console.log(todosSubset);
 
   const addTodo = (todo) => {
     const newTodos = [...todos, todo];
@@ -80,11 +73,27 @@ export const TodoProvider = ({ children }) => {
   const toggleComplete = (todo) => {
     const newTodos = todos.map((todoElement) => {
       if (todoElement.id === todo.id) {
-        todoElement.completed = !todoElement.completed;
+        todoElement.isComplete = !todoElement.isComplete;
       }
       return todoElement;
     });
     setTodos(newTodos);
+  };
+
+  const searchTodo = (todoName) => {
+    const searchedTodos = todos.filter((todo) =>
+      todo.taskName.toLowerCase().includes(todoName.toLowerCase())
+    );
+    // if (
+    //   todos.filter((todo) =>
+    //     todoName.toLowerCase().includes(todo.taskName.toLowerCase())
+    //   )
+    // ) {
+    //   console.log(true);
+    // } else {
+    //   console.log(false);
+    // }
+    setTodosSubset(searchedTodos);
   };
 
   const addSubTask = (subTaskInput, taskId, subTasks) => {
@@ -113,6 +122,19 @@ export const TodoProvider = ({ children }) => {
     });
     return newSubTasks;
   };
+
+  const getLevel = (level) => {
+    if (level < 3) {
+      return 'Low';
+    }
+    if (level > 3 && level <= 6) {
+      return 'Medium';
+    }
+    if (level > 6) {
+      return 'High';
+    }
+  };
+
   return (
     <TodoContext.Provider
       value={{
@@ -123,6 +145,10 @@ export const TodoProvider = ({ children }) => {
         addSubTask,
         removeSubTask,
         editSubTask,
+        getLevel,
+        searchTodo,
+        todosSubset,
+        setTodosSubset,
       }}
     >
       {children}

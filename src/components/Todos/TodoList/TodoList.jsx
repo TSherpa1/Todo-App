@@ -4,12 +4,11 @@ import { TodoItem } from '..';
 import { ListContainer } from './TodoList.styles';
 
 const TodoList = () => {
-  const { todos } = useContext(TodoContext);
+  const { todosSubset } = useContext(TodoContext);
 
-  console.log('here', todos);
   return (
     <ListContainer className="todo-list">
-      {todos.map((todo) => (
+      {todosSubset.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
     </ListContainer>

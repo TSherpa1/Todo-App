@@ -6,7 +6,7 @@ import {
 
 const TaskInput = ({ handleTaskInputChange, taskName }) => (
   <TaskInputContainer className="edit-task-name-container">
-    <TaskInputLabel htmlfor="task-name">Task Name</TaskInputLabel>
+    <TaskInputLabel htmlFor="task-name">Task Name</TaskInputLabel>
     <TaskTextInput
       className="edit-task-input"
       type="text"

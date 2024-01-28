@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { TodoContext } from '../../../context/todoContext';
 import {
   SearchForm,
   SearchFormInput,
@@ -9,8 +10,11 @@ import {
 const TodoSearchForm = () => {
   const [taskName, setTaskName] = useState('');
 
+  const { searchTodo } = useContext(TodoContext);
+
   const handleChange = (event) => {
     setTaskName(event.target.value);
+    searchTodo(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -19,7 +23,7 @@ const TodoSearchForm = () => {
   };
 
   return (
-    <SearchForm class="search-form-container" onSubmit={handleSubmit}>
+    <SearchForm className="search-form-container" onSubmit={handleSubmit}>
       <SearchIcon
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

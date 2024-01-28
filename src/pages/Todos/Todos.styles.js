@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const TodosContainer = styled.div`
-  padding-top: 50px;
-  width: 500px;
+  padding: 30px 0px;
+  width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,8 +16,9 @@ export const AddNewTaskBtn = styled.button`
   border-radius: 35px;
   font-size: 17px;
   border: none;
-  width: 170px;
-  height: 65px;
+  padding: 10px;
+  width: 150px;
+  height: 50px;
   background-color: #0f99ff;
   &:hover {
     cursor: pointer;

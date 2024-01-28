@@ -27,7 +27,7 @@ const TodoFormComponent = () => {
   const [tagsInput, setTagsInput] = useState('');
   const [tags, setTags] = useState([]);
 
-  const { addTodo, removeSubTask, editSubTask, addSubTask } =
+  const { addTodo, removeSubTask, editSubTask, addSubTask, getLevel } =
     useContext(TodoContext);
   const navigate = useNavigate();
 
@@ -40,7 +40,9 @@ const TodoFormComponent = () => {
       taskName,
       isComplete: false,
       priority,
+      priorityLevel: getLevel(priority),
       complexity,
+      complexityLevel: getLevel(complexity),
       dueDate,
       time,
       subTasks,
