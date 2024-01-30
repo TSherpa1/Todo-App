@@ -1,4 +1,4 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import { uid } from 'uid';
 
 export const TodoContext = createContext();
@@ -30,9 +30,9 @@ export const TodoProvider = ({ children }) => {
       time: '15:04',
     },
     {
-      complexity: 7,
+      complexity: 3,
       complexityLevel: 'Low',
-      dueDate: '2024-05-03',
+      dueDate: '2024-09-03',
       id: '991a54e35',
       isComplete: false,
       priority: 5,
@@ -80,22 +80,6 @@ export const TodoProvider = ({ children }) => {
     setTodos(newTodos);
   };
 
-  const searchTodo = (todoName) => {
-    const searchedTodos = todos.filter((todo) =>
-      todo.taskName.toLowerCase().includes(todoName.toLowerCase())
-    );
-    // if (
-    //   todos.filter((todo) =>
-    //     todoName.toLowerCase().includes(todo.taskName.toLowerCase())
-    //   )
-    // ) {
-    //   console.log(true);
-    // } else {
-    //   console.log(false);
-    // }
-    setTodosSubset(searchedTodos);
-  };
-
   const addSubTask = (subTaskInput, taskId, subTasks) => {
     const newSubTask = {
       name: subTaskInput,
@@ -135,6 +119,39 @@ export const TodoProvider = ({ children }) => {
     }
   };
 
+  const searchTodo = (todoName) => {
+    const searchedTodos = todos.filter((todo) =>
+      todo.taskName.toLowerCase().includes(todoName.toLowerCase())
+    );
+    setTodosSubset(searchedTodos);
+  };
+
+  const sortTodos = (sortType) => {
+    if (sortType === 'Default') {
+      setTodosSubset(todos);
+      return;
+    }
+    const newTodosSubset = todosSubset.sort((todo1, todo2) => {
+      switch (sortType) {
+        case 'Ascending Date':
+          return todo1.dueDate - todo2.dueDate;
+        case 'Descending Date':
+          return todo2.dueDate - todo1.dueDate;
+        case 'Ascending Complexity':
+          return todo1.complexity - todo2.complexity;
+        case 'Descending Complexity':
+          return todo2.complexity - todo1.complexity;
+        case 'Ascending Priortiy':
+          return todo1.priority - todo2.priority;
+        case 'Descending Priority':
+          return todo2.priority - todo1.priority;
+        default:
+          return todos;
+      }
+    });
+    setTodosSubset([...newTodosSubset]);
+  };
+
   return (
     <TodoContext.Provider
       value={{
@@ -149,6 +166,7 @@ export const TodoProvider = ({ children }) => {
         searchTodo,
         todosSubset,
         setTodosSubset,
+        sortTodos,
       }}
     >
       {children}

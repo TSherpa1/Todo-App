@@ -20,10 +20,8 @@ export const AddNewTaskBtn = styled.button`
   width: 150px;
   height: 50px;
   background-color: #0f99ff;
+  color: white;
   &:hover {
     cursor: pointer;
-  }
-  a {
-    color: white;
   }
 `;

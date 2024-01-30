@@ -8,9 +8,9 @@ const Todos = () => {
       <TodoSearchForm />
       <TodoSort />
       <TodoList />
-      <AddNewTaskBtn>
-        <Link to="/addTodo">+ Add New Task</Link>
-      </AddNewTaskBtn>
+      <Link to="/addTodo">
+        <AddNewTaskBtn>+ Add New Task</AddNewTaskBtn>
+      </Link>
     </TodosContainer>
   );
 };

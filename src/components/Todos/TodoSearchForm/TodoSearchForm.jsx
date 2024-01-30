@@ -43,6 +43,7 @@ const TodoSearchForm = () => {
         type="text"
         onChange={handleChange}
         value={taskName}
+        placeholder="Search..."
       />
       <ArrowIcon
         xmlns="http://www.w3.org/2000/svg"

@@ -31,6 +31,7 @@ export const TimeDateLabel = styled.label`
   position: relative;
   right: 30%;
   // bottom: 100%;
+  white-space: nowrap;
 `;
 
 export const DateLabel = styled.label`

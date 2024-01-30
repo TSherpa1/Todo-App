@@ -12,10 +12,10 @@ import {
   Tag,
   EditCompleteTodoSVG,
 } from './TodoItem.styles';
+import { timeConversion, dateConversion } from '../../../utils/conversions';
 
 const TodoItem = ({ todo }) => {
   const { toggleComplete } = useContext(TodoContext);
-
   return (
     <TodoCard className="todo-card">
       <TodoInfo className="todo-info">
@@ -39,7 +39,8 @@ const TodoItem = ({ todo }) => {
             />
           </SVG>
           <p className="due-date">
-            <span>Due Date:</span> {todo.dueDate}, {todo.time}
+            <span>Due Date:</span> {dateConversion(todo.dueDate)},{' '}
+            {timeConversion(todo.time)}
           </p>
         </InnerInfoContainer>
         <InnerInfoContainer>

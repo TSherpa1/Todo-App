@@ -4,7 +4,7 @@ export const TodoFormContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 600px;
+  width: 550px;
   margin: 30px 0px;
 `;
 

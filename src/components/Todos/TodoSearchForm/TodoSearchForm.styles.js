@@ -8,17 +8,17 @@ export const SearchForm = styled.div`
 export const SearchFormInput = styled.input`
   border-radius: 30px;
   border: 1px solid lightgray;
-  width: 94%;
+  width: 89%;
   height: 40px;
-  padding: 10px 20px;
+  padding: 10px 0px 10px 48px;
   font-size: 15px;
 `;
 
 export const SearchIcon = styled.svg`
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   position: absolute;
-  top: 15px;
+  top: 18px;
   left: 19px;
 `;
 
@@ -26,9 +26,9 @@ export const ArrowIcon = styled.svg`
   height: 25px;
   width: 25px;
   position: absolute;
-  top: 9px;
-  right: 13px;
+  top: 13px;
+  right: 12px;
   background: #deecf6;
   border-radius: 50px;
-  padding: 10px;
+  padding: 5px;
 `;
