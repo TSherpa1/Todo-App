@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const TodoCard = styled.div`
-  background: white;
+  background: ${(props) => (props.iscomplete === 'true' ? '#e2ecf6' : 'white')};
   border-radius: 30px;
   width: 91%;
   display: flex;
@@ -87,4 +87,7 @@ export const EditCompleteTodoSVG = styled.svg`
   background: #e7f5ff;
   padding: 8px;
   border-radius: 50px;
+  &:hover {
+    cursor: pointer;
+  }
 `;

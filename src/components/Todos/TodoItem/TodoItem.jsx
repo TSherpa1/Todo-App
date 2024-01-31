@@ -17,7 +17,7 @@ import { timeConversion, dateConversion } from '../../../utils/conversions';
 const TodoItem = ({ todo }) => {
   const { toggleComplete } = useContext(TodoContext);
   return (
-    <TodoCard className="todo-card">
+    <TodoCard className="todo-card" iscomplete={todo.isComplete.toString()}>
       <TodoInfo className="todo-info">
         <InnerInfoContainer>
           <Circle></Circle>

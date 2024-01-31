@@ -1,10 +1,11 @@
 import { useContext } from 'react';
 import { TodoContext } from '../../../context/todoContext';
 import { SortTypeList, SortListItem } from './TodoSort.styles';
-const SortTypes = ({ sortingTypes }) => {
+const SortTypes = ({ sortingTypes, clicked }) => {
   const { sortTodos } = useContext(TodoContext);
+
   return (
-    <SortTypeList>
+    <SortTypeList clicked={clicked.toString()}>
       {sortingTypes.map((sortType) => (
         <SortListItem key={sortType}>
           <p>{sortType}</p>

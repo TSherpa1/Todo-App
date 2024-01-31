@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { SortType } from '..';
+import { useState, useContext } from 'react';
+import { SortTypes, CategoryTypes } from '..';
 import {
   TodoSortBtn,
   TodoSortContainer,
@@ -9,7 +9,11 @@ import {
 import { TodoContext } from '../../../context/todoContext';
 
 const TodoSort = () => {
-  const { sortTodos } = useContext(TodoContext);
+  const [sortClicked, setSortClicked] = useState(false);
+  const [filterClicked, setFilterClicked] = useState(false);
+
+  const { getTags, todosSubset } = useContext(TodoContext);
+
   const sortedTypes = [
     'Default',
     'Ascending Date',
@@ -20,11 +24,25 @@ const TodoSort = () => {
     'Descending Priority',
   ];
 
-  const categoryTypes = ['hello'];
+  const categoryTypes = getTags(todosSubset);
+
+  const handleclick = (type) => {
+    if (type === 'sort') {
+      setSortClicked(!sortClicked);
+    }
+    if (type === 'filter') {
+      setFilterClicked(!filterClicked);
+    }
+  };
+
   return (
     <TodoSortContainer>
       <TodoSortInnerContainer>
-        <TodoSortBtn>
+        <TodoSortBtn
+          onClick={() => {
+            handleclick('sort');
+          }}
+        >
           <p>Sort</p>
           <ChevronIcon
             xmlns="http://www.w3.org/2000/svg"
@@ -41,11 +59,15 @@ const TodoSort = () => {
             />
           </ChevronIcon>
         </TodoSortBtn>
-        <SortType sortingTypes={sortedTypes} />
+        <SortTypes sortingTypes={sortedTypes} clicked={sortClicked} />
       </TodoSortInnerContainer>
       <TodoSortInnerContainer>
-        <TodoSortBtn>
-          <p>Filter</p>
+        <TodoSortBtn
+          onClick={() => {
+            handleclick('filter');
+          }}
+        >
+          <p>Category</p>
           <ChevronIcon
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -61,7 +83,7 @@ const TodoSort = () => {
             />
           </ChevronIcon>
         </TodoSortBtn>
-        <SortType sortingTypes={categoryTypes} />
+        <CategoryTypes categoryTypes={categoryTypes} clicked={filterClicked} />
       </TodoSortInnerContainer>
     </TodoSortContainer>
   );

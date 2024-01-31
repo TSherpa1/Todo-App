@@ -21,6 +21,9 @@ export const TodoSortBtn = styled.button`
   align-items: center;
   gap: 35px;
   font-size: 16px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ChevronIcon = styled.svg`
@@ -36,6 +39,7 @@ export const SortTypeList = styled.ul`
   position: absolute;
   z-index: 999;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 10px, rgba(0, 0, 0, 0.1) 0px 5px 10px;
+  display: ${(props) => (props.clicked === 'true' ? 'block' : 'none')};
 `;
 
 export const SortListItem = styled.li`

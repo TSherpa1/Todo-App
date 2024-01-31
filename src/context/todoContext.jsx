@@ -25,16 +25,41 @@ export const TodoProvider = ({ children }) => {
           taskId: { current: 'b34f58e99' },
         },
       ],
-      tags: ['Tag1', 'Tag2'],
+      tags: ['Tag 1', 'Tag 2'],
       taskName: 'Task 1',
+      time: '15:04',
+    },
+    {
+      complexity: 5,
+      complexityLevel: 'Medium',
+      dueDate: '2024-09-03',
+      id: '991a54e35',
+      isComplete: false,
+      priority: 8,
+      priorityLevel: 'High',
+      subTasks: [
+        {
+          id: '2f64ac13868',
+          name: 'Subtask 1',
+          taskId: { current: 'b3f80558e99' },
+        },
+        {
+          id: '2f64ac68',
+          name: 'Subtask 2',
+          taskId: { current: 'b3f58e99' },
+        },
+      ],
+      tags: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4'],
+      taskName: 'Task 2',
       time: '15:04',
     },
     {
       complexity: 3,
       complexityLevel: 'Low',
-      dueDate: '2024-09-03',
-      id: '991a54e35',
+      dueDate: '2024-11-05',
+      id: '9914e35',
       isComplete: false,
+
       priority: 5,
       priorityLevel: 'Medium',
       subTasks: [
@@ -49,8 +74,8 @@ export const TodoProvider = ({ children }) => {
           taskId: { current: 'b3f58e99' },
         },
       ],
-      tags: ['Tag1', 'Tag2'],
-      taskName: 'Task 2',
+      tags: ['Tag 1', 'Tag 2', 'Tag 3'],
+      taskName: 'Task 3',
       time: '15:04',
     },
   ];
@@ -128,10 +153,10 @@ export const TodoProvider = ({ children }) => {
 
   const sortTodos = (sortType) => {
     if (sortType === 'Default') {
-      setTodosSubset(todos);
+      setTodosSubset([...todos]);
       return;
     }
-    const newTodosSubset = todosSubset.sort((todo1, todo2) => {
+    const newTodosSubset = [...todosSubset].sort((todo1, todo2) => {
       switch (sortType) {
         case 'Ascending Date':
           return todo1.dueDate - todo2.dueDate;
@@ -145,11 +170,38 @@ export const TodoProvider = ({ children }) => {
           return todo1.priority - todo2.priority;
         case 'Descending Priority':
           return todo2.priority - todo1.priority;
-        default:
-          return todos;
       }
     });
     setTodosSubset([...newTodosSubset]);
+  };
+
+  const getTags = (todos) => {
+    let tagsArray = [];
+    todos.map((todo) =>
+      todo.tags.map((tag) => {
+        if (!tagsArray.includes(tag)) {
+          tagsArray.push(tag);
+        }
+      })
+    );
+    return tagsArray;
+  };
+
+  const filterCategory = (selectedTags) => {
+    let filteredTodos = [...todos];
+    if (selectedTags.length > 0) {
+      filteredTodos = [];
+      todos.map((todo) =>
+        todo.tags.map((tag) => {
+          if (selectedTags.includes(tag) && !filteredTodos.includes(todo)) {
+            filteredTodos.push(todo);
+          }
+        })
+      );
+      setTodosSubset(filteredTodos);
+    } else {
+      setTodosSubset(todos);
+    }
   };
 
   return (
@@ -167,6 +219,8 @@ export const TodoProvider = ({ children }) => {
         todosSubset,
         setTodosSubset,
         sortTodos,
+        getTags,
+        filterCategory,
       }}
     >
       {children}
