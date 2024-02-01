@@ -36,6 +36,9 @@ export const InnerInfoContainer = styled.div`
   span {
     color: gray;
   }
+  p {
+    white-space: nowrap;
+  }
 `;
 
 export const Circle = styled.div`

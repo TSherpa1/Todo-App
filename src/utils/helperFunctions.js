@@ -1,3 +1,3 @@
-// export const getTags = (todos) => {
-//   todos.map((todo) => todo.tasks.map((task) => console.log(task)));
-// };
+export const convertDueDate = (date) => {
+  return new Date(date).valueOf();
+};

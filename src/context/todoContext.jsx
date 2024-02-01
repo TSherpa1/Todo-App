@@ -1,5 +1,6 @@
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext } from 'react';
 import { uid } from 'uid';
+import { convertDueDate } from '../utils/helperFunctions';
 
 export const TodoContext = createContext();
 
@@ -27,7 +28,7 @@ export const TodoProvider = ({ children }) => {
       ],
       tags: ['Tag 1', 'Tag 2'],
       taskName: 'Task 1',
-      time: '15:04',
+      time: '13:04',
     },
     {
       complexity: 5,
@@ -51,7 +52,7 @@ export const TodoProvider = ({ children }) => {
       ],
       tags: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4'],
       taskName: 'Task 2',
-      time: '15:04',
+      time: '19:02',
     },
     {
       complexity: 3,
@@ -76,7 +77,7 @@ export const TodoProvider = ({ children }) => {
       ],
       tags: ['Tag 1', 'Tag 2', 'Tag 3'],
       taskName: 'Task 3',
-      time: '15:04',
+      time: '11:04',
     },
   ];
 
@@ -159,9 +160,11 @@ export const TodoProvider = ({ children }) => {
     const newTodosSubset = [...todosSubset].sort((todo1, todo2) => {
       switch (sortType) {
         case 'Ascending Date':
-          return todo1.dueDate - todo2.dueDate;
+          return convertDueDate(todo1.dueDate) - convertDueDate(todo2.dueDate);
+        // return todo1.dueDate - todo2.dueDate;
         case 'Descending Date':
-          return todo2.dueDate - todo1.dueDate;
+          return convertDueDate(todo2.dueDate) - convertDueDate(todo1.dueDate);
+        // return todo2.dueDate - todo1.dueDate;
         case 'Ascending Complexity':
           return todo1.complexity - todo2.complexity;
         case 'Descending Complexity':
