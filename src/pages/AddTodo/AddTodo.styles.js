@@ -7,13 +7,13 @@ export const AddTodoContainer = styled.div`
   align-items: center;
 `;
 
-export const AddTodoHeaderContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-  width: 70%;
-`;
+// export const AddTodoHeaderContainer = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin-top: 50px;
+//   width: 70%;
+// `;
 
 export const BackToHomeBtn = styled.button`
   width: 40px;

@@ -1,26 +1,27 @@
 import styled from 'styled-components';
 
-export const TodoCard = styled.div`
-  background: ${(props) => (props.iscomplete === 'true' ? '#e7f5ff' : 'white')};
+export const TodoDetailsCard = styled.div`
+  background: white;
   border-radius: 30px;
   width: 91%;
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  height: 150px;
-  font-size: 15px;
+  height: 220px;
+  font-size: 17px;
   color: black;
   &:hover {
     cursor: pointer;
   }
 `;
 
-export const TodoInfo = styled.div`
+export const DetailsInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
 `;
+
 export const TodoBtnsContainer = styled.div`
   width: 30%;
   gap: 10px;
@@ -28,15 +29,10 @@ export const TodoBtnsContainer = styled.div`
   justify-content: flex-end;
 `;
 
-export const TagsContainer = styled.ul`
-  display: flex;
-  gap: 15px;
-`;
-
 export const InnerInfoContainer = styled.div`
   display: flex;
   position: relative;
-  gap: 8px;
+  gap: 10px;
   span {
     color: gray;
   }
@@ -81,20 +77,4 @@ export const ArrowUpSvg = styled.svg`
   bottom: 1px;
 `;
 
-export const Tag = styled.li`
-  background: #e2ecf6;
-  padding: 8px;
-  border-radius: 20px;
-  font-size: 13px;
-`;
-
-export const EditCompleteTodoSVG = styled.svg`
-  height: 15px;
-  width: 15px;
-  background: #e2ecf6;
-  padding: 8px;
-  border-radius: 50px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
+export const ProgressBarContainer = styled.div``;

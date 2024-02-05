@@ -19,11 +19,13 @@ export const TodoProvider = ({ children }) => {
           id: '2f64ac138168',
           name: 'Subtask 1',
           taskId: { current: 'b3f803558e99' },
+          isComplete: false,
         },
         {
           id: '2f64a5c68',
           name: 'Subtask 2',
           taskId: { current: 'b34f58e99' },
+          isComplete: false,
         },
       ],
       tags: ['Tag 1', 'Tag 2'],
@@ -43,11 +45,13 @@ export const TodoProvider = ({ children }) => {
           id: '2f64ac13868',
           name: 'Subtask 1',
           taskId: { current: 'b3f80558e99' },
+          isComplete: false,
         },
         {
           id: '2f64ac68',
           name: 'Subtask 2',
           taskId: { current: 'b3f58e99' },
+          isComplete: false,
         },
       ],
       tags: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4'],
@@ -68,11 +72,13 @@ export const TodoProvider = ({ children }) => {
           id: '2f64ac13868',
           name: 'Subtask 1',
           taskId: { current: 'b3f80558e99' },
+          isComplete: false,
         },
         {
           id: '2f64ac68',
           name: 'Subtask 2',
           taskId: { current: 'b3f58e99' },
+          isComplete: false,
         },
       ],
       tags: ['Tag 1', 'Tag 2', 'Tag 3'],
@@ -96,6 +102,10 @@ export const TodoProvider = ({ children }) => {
     setTodos(newTodos);
   };
 
+  const getTodo = (todoId, todos) => {
+    return todos.find((todo) => todo.id === todoId);
+  };
+
   const toggleComplete = (todo) => {
     const newTodos = todos.map((todoElement) => {
       if (todoElement.id === todo.id) {
@@ -111,6 +121,7 @@ export const TodoProvider = ({ children }) => {
       name: subTaskInput,
       id: uid(),
       taskId,
+      isComplete: false,
     };
     const newSubTasks = [...subTasks, newSubTask];
     return newSubTasks;
@@ -224,6 +235,7 @@ export const TodoProvider = ({ children }) => {
         sortTodos,
         getTags,
         filterCategory,
+        getTodo,
       }}
     >
       {children}
