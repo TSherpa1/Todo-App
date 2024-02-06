@@ -16,7 +16,7 @@ export const RepeatBtn = styled.button`
   color: white;
   border-radius: 30px;
   border: none;
-  width: 98%;
+  width: 100%;
   height: 30px;
   padding: 25px 0px;
   font-size: 15px;
@@ -35,7 +35,7 @@ export const DeleteBtn = styled.button`
   color: black;
   border-radius: 30px;
   border: none;
-  width: 98%;
+  width: 100%;
   height: 30px;
   padding: 25px 0px;
   font-size: 15px;

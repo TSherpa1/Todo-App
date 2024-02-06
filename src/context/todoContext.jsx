@@ -1,99 +1,31 @@
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import { uid } from 'uid';
 import { convertDueDate } from '../utils/helperFunctions';
 
 export const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-  const dummyData = [
-    {
-      complexity: 7,
-      complexityLevel: 'High',
-      dueDate: '2024-02-02',
-      id: '9a5402e35',
-      isComplete: false,
-      priority: 2,
-      priorityLevel: 'Low',
-      subTasks: [
-        {
-          id: '2f64ac138168',
-          name: 'Subtask 1',
-          taskId: { current: 'b3f803558e99' },
-          isComplete: false,
-        },
-        {
-          id: '2f64a5c68',
-          name: 'Subtask 2',
-          taskId: { current: 'b34f58e99' },
-          isComplete: false,
-        },
-      ],
-      tags: ['Tag 1', 'Tag 2'],
-      taskName: 'Task 1',
-      time: '13:04',
-    },
-    {
-      complexity: 5,
-      complexityLevel: 'Medium',
-      dueDate: '2024-09-03',
-      id: '991a54e35',
-      isComplete: false,
-      priority: 8,
-      priorityLevel: 'High',
-      subTasks: [
-        {
-          id: '2f64ac13868',
-          name: 'Subtask 1',
-          taskId: { current: 'b3f80558e99' },
-          isComplete: false,
-        },
-        {
-          id: '2f64ac68',
-          name: 'Subtask 2',
-          taskId: { current: 'b3f58e99' },
-          isComplete: false,
-        },
-      ],
-      tags: ['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4'],
-      taskName: 'Task 2',
-      time: '19:02',
-    },
-    {
-      complexity: 3,
-      complexityLevel: 'Low',
-      dueDate: '2024-11-05',
-      id: '9914e35',
-      isComplete: false,
+  const [todos, setTodos] = useState(
+    JSON.parse(localStorage.getItem('todos')) || []
+  );
 
-      priority: 5,
-      priorityLevel: 'Medium',
-      subTasks: [
-        {
-          id: '2f64ac13868',
-          name: 'Subtask 1',
-          taskId: { current: 'b3f80558e99' },
-          isComplete: false,
-        },
-        {
-          id: '2f64ac68',
-          name: 'Subtask 2',
-          taskId: { current: 'b3f58e99' },
-          isComplete: false,
-        },
-      ],
-      tags: ['Tag 1', 'Tag 2', 'Tag 3'],
-      taskName: 'Task 3',
-      time: '11:04',
-    },
-  ];
+  const [todosSubset, setTodosSubset] = useState([]);
 
-  const [todos, setTodos] = useState(dummyData);
-  const [todosSubset, setTodosSubset] = useState(dummyData);
+  useEffect(() => {
+    const data = localStorage.getItem('todos');
+    if (data) {
+      setTodos(JSON.parse(data));
+    }
+  }, []);
 
-  // console.log(todosSubset);
+  useEffect(() => {
+    if (todos.length !== 0) {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+  }, [todos]);
 
   const addTodo = (todo) => {
-    const newTodos = [...todos, todo];
+    const newTodos = todos.length > 0 ? [...todos, todo] : [todo];
     setTodos(newTodos);
   };
 
@@ -144,6 +76,30 @@ export const TodoProvider = ({ children }) => {
     return newSubTasks;
   };
 
+  const getSubTaskTodo = (subTask) => {
+    const currentTodo = todos.find(
+      (todo) => todo.id === subTask.taskId.current
+    );
+    return currentTodo;
+  };
+  const completeSubTask = (subTask) => {
+    const currentTodo = getSubTaskTodo(subTask);
+    currentTodo.subTasks.forEach((subTaskElement) => {
+      if (subTaskElement.id === subTask.id) {
+        subTaskElement.isComplete = !subTaskElement.isComplete;
+      }
+    });
+    setTodos([...todos]);
+  };
+
+  const repeatTodo = (todo) => {
+    const currentTodo = todos.find((todoElement) => todoElement.id === todo.id);
+    currentTodo.subTasks.forEach((subTaskElement) => {
+      subTaskElement.isComplete = false;
+    });
+    setTodos([...todos]);
+  };
+
   const getLevel = (level) => {
     if (level < 3) {
       return 'Low';
@@ -172,10 +128,8 @@ export const TodoProvider = ({ children }) => {
       switch (sortType) {
         case 'Ascending Date':
           return convertDueDate(todo1.dueDate) - convertDueDate(todo2.dueDate);
-        // return todo1.dueDate - todo2.dueDate;
         case 'Descending Date':
           return convertDueDate(todo2.dueDate) - convertDueDate(todo1.dueDate);
-        // return todo2.dueDate - todo1.dueDate;
         case 'Ascending Complexity':
           return todo1.complexity - todo2.complexity;
         case 'Descending Complexity':
@@ -191,18 +145,20 @@ export const TodoProvider = ({ children }) => {
 
   const getTags = (todos) => {
     let tagsArray = [];
-    todos.map((todo) =>
-      todo.tags.map((tag) => {
-        if (!tagsArray.includes(tag)) {
-          tagsArray.push(tag);
-        }
-      })
-    );
-    return tagsArray;
+    if (todos.length !== 0) {
+      todos.map((todo) =>
+        todo.tags.map((tag) => {
+          if (!tagsArray.includes(tag)) {
+            tagsArray.push(tag);
+          }
+        })
+      );
+      return tagsArray;
+    }
   };
 
   const filterCategory = (selectedTags) => {
-    let filteredTodos = [...todos];
+    let filteredTodos = todos.length > 0 ? [...todos] : [];
     if (selectedTags.length > 0) {
       filteredTodos = [];
       todos.map((todo) =>
@@ -236,6 +192,8 @@ export const TodoProvider = ({ children }) => {
         getTags,
         filterCategory,
         getTodo,
+        completeSubTask,
+        repeatTodo,
       }}
     >
       {children}

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const DetailsSubTaskListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  // align-items: center;
-  // justify-content: center;
+  align-items: center;
+  justify-content: center;
   width: 108%;
 `;
 
@@ -28,12 +28,12 @@ export const SubTaskItem = styled.div`
   background: white;
   border-radius: 30px;
   border: none;
-  width: 93%;
+  width: 100%;
   height: 35px;
   padding: 10px 20px;
   font-size: 15px;
   position: relative;
-  left: 3%;
+  left: 4%;
   &:hover {
     cursor: pointer;
   }
@@ -44,14 +44,14 @@ export const SubTaskCompleteBtn = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
-  width: 45px;
-  height: 42px;
+  width: 47px;
+  height: 40px;
   border-radius: 30px;
   background: ${(props) =>
-    props.complete === props.value ? '#0f99ff' : '#deecf6'};
-  color: white;
+    props.iscomplete === 'true' ? '#0f99ff' : '#e7f5ff'};
+  color: ${(props) => (props.iscomplete === 'true' ? 'white' : 'black')};
   position: relative;
-  right: 7%;
+  right: 6%;
   font-size: 25px;
   &:hover {
     cursor: pointer;

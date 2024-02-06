@@ -18,7 +18,12 @@ import { timeConversion, dateConversion } from '../../../utils/conversions';
 const TodoItem = ({ todo }) => {
   const { toggleComplete } = useContext(TodoContext);
   return (
-    <Link to={`/todo/${todo.id}`}>
+    <Link
+      to={`/todo/${todo.id}`}
+      // onClick={(event) => {
+      //   event.stopImmediatePropagation();
+      // }}
+    >
       <TodoCard className="todo-card" iscomplete={todo.isComplete.toString()}>
         <TodoInfo className="todo-info">
           <InnerInfoContainer>
@@ -99,6 +104,10 @@ const TodoItem = ({ todo }) => {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 edit-todo"
+            onClick={(event) => {
+              event.preventDefault();
+              toggleComplete(todo);
+            }}
           >
             <path
               strokeLinecap="round"
@@ -113,7 +122,8 @@ const TodoItem = ({ todo }) => {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 toggle-complete-todo"
-            onClick={() => {
+            onClick={(event) => {
+              event.preventDefault();
               toggleComplete(todo);
             }}
           >

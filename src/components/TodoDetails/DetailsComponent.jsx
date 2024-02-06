@@ -7,13 +7,12 @@ import {
 } from './';
 
 const DetailsComponent = ({ todo }) => {
-  console.log(todo);
   return (
     <DetailsContainer className="details-container">
       <DetailsHeader />
       <DetailsCard todo={todo} />
       <DetailsSubTaskList subTasks={todo.subTasks} />
-      <DetailsButtons />
+      <DetailsButtons todo={todo} />
     </DetailsContainer>
   );
 };

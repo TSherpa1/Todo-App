@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TodoContext } from '../../../context/todoContext';
 import {
   DetailsBtnsContainer,
   RepeatBtn,
@@ -5,10 +8,16 @@ import {
   SVG,
 } from './DetailsButtons.styles';
 
-const DetailsButtons = () => {
+const DetailsButtons = ({ todo }) => {
+  const { removeTodo, repeatTodo } = useContext(TodoContext);
+  const navigate = useNavigate();
   return (
     <DetailsBtnsContainer>
-      <RepeatBtn>
+      <RepeatBtn
+        onClick={() => {
+          repeatTodo(todo);
+        }}
+      >
         <SVG
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -25,7 +34,12 @@ const DetailsButtons = () => {
         </SVG>
         Repeat Task
       </RepeatBtn>
-      <DeleteBtn>
+      <DeleteBtn
+        onClick={() => {
+          removeTodo(todo);
+          navigate('/');
+        }}
+      >
         <SVG
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

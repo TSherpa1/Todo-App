@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { TodoContext } from '../../../context/todoContext';
 import {
   SubTaskItemContainer,
   SubTaskItem,
@@ -6,10 +8,16 @@ import {
 } from './DetailsSubTasks.styles';
 
 const DetailsSubTask = ({ subTask, number }) => {
+  const { completeSubTask } = useContext(TodoContext);
   return (
     <SubTaskItemContainer className="subtask-container">
-      <SubTaskItem>{`${number}. ${subTask.name}`}</SubTaskItem>
-      <SubTaskCompleteBtn>
+      <SubTaskItem
+        onClick={() => completeSubTask(subTask)}
+      >{`${number}. ${subTask.name}`}</SubTaskItem>
+      <SubTaskCompleteBtn
+        onClick={() => completeSubTask(subTask)}
+        iscomplete={subTask.isComplete.toString()}
+      >
         <CompleteSVG
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
