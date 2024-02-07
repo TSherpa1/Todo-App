@@ -20,6 +20,10 @@ const FormSubTask = ({ subTask, handleRemoveSubtask, handleEditSubTask }) => {
         onClick={() => {
           setIsEditing(true);
         }}
+        onBlur={() => {
+          handleEditSubTask(subTaskName, subTask.id);
+          setIsEditing(false);
+        }}
         onChange={(event) => {
           setSubTaskName(event.target.value);
         }}

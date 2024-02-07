@@ -38,8 +38,8 @@ export const AddSubTaskBtn = styled.button`
   background-color: #0f99ff;
   color: white;
   position: relative;
-  // bottom: 37%;
-  right: 5%;
+  // bottom: 40%;
+  right: 6%;
   font-size: 30px;
   &:hover {
     cursor: pointer;
@@ -78,7 +78,7 @@ export const SubTaskRemoveBtn = styled.button`
   color: white;
   position: relative;
   // bottom: 37%;
-  right: 5%;
+  right: 6%;
   font-size: 25px;
   &:hover {
     cursor: pointer;

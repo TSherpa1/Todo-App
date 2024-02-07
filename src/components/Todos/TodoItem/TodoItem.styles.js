@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const TodoCard = styled.div`
-  background: ${(props) => (props.iscomplete === 'true' ? '#e7f5ff' : 'white')};
+  background: ${(props) => (props.iscomplete ? '#e7f5ff' : 'white')};
+  background: ${(props) => props.iscomplete};
   border-radius: 30px;
   width: 91%;
   display: flex;

@@ -5,7 +5,7 @@ import {
   BackToHomeBtn,
 } from './FormHeader.styles';
 
-const FormHeader = () => (
+const FormHeader = ({ isEditing }) => (
   <TodoFormHeaderContainer className="add-todo-header-container">
     <BackToHomeBtn className="back-to-home-btn">
       <Link to="/">
@@ -26,7 +26,7 @@ const FormHeader = () => (
       </Link>
     </BackToHomeBtn>
     <TodoFormHeaderText className="add-todo-header">
-      Add New Task
+      {isEditing ? 'Edit Task' : 'Add New Task'}
     </TodoFormHeaderText>
   </TodoFormHeaderContainer>
 );

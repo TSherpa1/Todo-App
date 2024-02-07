@@ -8,7 +8,7 @@ const AddTodo = () => {
   }, []);
   return (
     <AddTodoContainer className="add-todo-container">
-      <TodoFormComponent />
+      <TodoFormComponent isEditing={false} />
     </AddTodoContainer>
   );
 };

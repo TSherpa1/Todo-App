@@ -16,39 +16,66 @@ import {
   FormTagsInput,
 } from './';
 
-const TodoFormComponent = () => {
-  const [taskName, setTaskName] = useState('');
-  const [priority, setPriority] = useState(null);
-  const [complexity, setComplexity] = useState(null);
-  const [dueDate, setDueDate] = useState('');
-  const [time, setTime] = useState('');
+const TodoFormComponent = ({ isEditing, todo }) => {
+  const [taskName, setTaskName] = useState(isEditing ? todo.taskName : '');
+  const [priority, setPriority] = useState(isEditing ? todo.priority : null);
+  const [complexity, setComplexity] = useState(
+    isEditing ? todo.complexity : null
+  );
+  const [dueDate, setDueDate] = useState(isEditing ? todo.dueDate : '');
+  const [time, setTime] = useState(isEditing ? todo.time : '');
   const [subTaskInput, setSubTaskInput] = useState('');
-  const [subTasks, setSubTasks] = useState([]);
-  const [tagsInput, setTagsInput] = useState('');
+  const [subTasks, setSubTasks] = useState(isEditing ? todo.subTasks : []);
+  const [tagsInput, setTagsInput] = useState(
+    isEditing ? todo.tags.toString() : ''
+  );
   const [tags, setTags] = useState([]);
 
-  const { addTodo, removeSubTask, editSubTask, addSubTask, getLevel } =
-    useContext(TodoContext);
+  const {
+    addTodo,
+    removeSubTask,
+    editSubTask,
+    addSubTask,
+    getLevel,
+    editTodo,
+  } = useContext(TodoContext);
   const navigate = useNavigate();
 
   //creating a taskId variable prior to creating todo to allow link to subTask via subTask.id
   const taskId = useRef(uid());
 
   const createTask = () => {
-    const newTask = {
-      id: taskId.current,
-      taskName,
-      isComplete: false,
-      priority,
-      priorityLevel: getLevel(priority),
-      complexity,
-      complexityLevel: getLevel(complexity),
-      dueDate,
-      time,
-      subTasks,
-      tags: convertTags(),
-    };
-    return newTask;
+    if (isEditing) {
+      const editedTask = {
+        id: todo.id,
+        taskName,
+        isComplete: todo.isComplete,
+        priority,
+        priorityLevel: getLevel(priority),
+        complexity,
+        complexityLevel: getLevel(complexity),
+        dueDate,
+        time,
+        subTasks,
+        tags: convertTags(),
+      };
+      return editedTask;
+    } else {
+      const newTask = {
+        id: taskId.current,
+        taskName,
+        isComplete: false,
+        priority,
+        priorityLevel: getLevel(priority),
+        complexity,
+        complexityLevel: getLevel(complexity),
+        dueDate,
+        time,
+        subTasks,
+        tags: convertTags(),
+      };
+      return newTask;
+    }
   };
 
   const clearForm = () => {
@@ -65,6 +92,7 @@ const TodoFormComponent = () => {
   };
 
   const convertTags = () => {
+    console.log(tagsInput);
     const convertedTags = tagsInput.split(',').map((tag) => tag.trim());
     return convertedTags;
   };
@@ -77,6 +105,7 @@ const TodoFormComponent = () => {
   };
 
   const handleEditSubTask = (subTaskName, id) => {
+    console.log('editing');
     const newSubTasks = editSubTask(subTaskName, id, subTasks);
     setSubTasks(newSubTasks);
   };
@@ -115,8 +144,13 @@ const TodoFormComponent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newTask = createTask();
-    addTodo(newTask);
+    if (isEditing) {
+      const newTask = createTask();
+      editTodo(newTask);
+    } else {
+      const newTask = createTask();
+      addTodo(newTask);
+    }
     clearForm();
     navigate('/');
   };
@@ -124,7 +158,7 @@ const TodoFormComponent = () => {
   return (
     <TodoFormContainer className="todo-form-container">
       <TodoForm className="todo-form">
-        <FormHeader />
+        <FormHeader isEditing={isEditing} />
         <FormTaskInput
           taskName={taskName}
           handleTaskInputChange={handleTaskInputChange}

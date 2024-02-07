@@ -21,6 +21,7 @@ export const TodoProvider = ({ children }) => {
   useEffect(() => {
     if (todos.length !== 0) {
       localStorage.setItem('todos', JSON.stringify(todos));
+      // console.log(todos);
     }
   }, [todos]);
 
@@ -31,6 +32,16 @@ export const TodoProvider = ({ children }) => {
 
   const removeTodo = (todo) => {
     const newTodos = todos.filter((todoElement) => todoElement.id !== todo.id);
+    setTodos(newTodos);
+  };
+
+  const editTodo = (todo) => {
+    const newTodos = todos.map((todoElement) => {
+      if (todoElement.id === todo.id) {
+        todoElement = todo;
+      }
+      return todoElement;
+    });
     setTodos(newTodos);
   };
 
@@ -66,7 +77,7 @@ export const TodoProvider = ({ children }) => {
     return newSubTasks;
   };
 
-  const editSubTask = (id, subTaskName, subTasks) => {
+  const editSubTask = (subTaskName, id, subTasks) => {
     const newSubTasks = subTasks.map((subTask) => {
       if (subTask.id === id) {
         subTask.name = subTaskName;
@@ -194,6 +205,7 @@ export const TodoProvider = ({ children }) => {
         getTodo,
         completeSubTask,
         repeatTodo,
+        editTodo,
       }}
     >
       {children}
