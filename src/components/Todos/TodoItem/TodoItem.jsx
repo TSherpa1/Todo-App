@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TodoContext } from '../../../context/todoContext';
 import {
@@ -12,23 +12,27 @@ import {
   Circle,
   Tag,
   EditCompleteTodoSVG,
+  LabelSpan,
+  DateSpan,
 } from './TodoItem.styles';
 import { timeConversion, dateConversion } from '../../../utils/conversions';
 
 const TodoItem = ({ todo }) => {
-  const { toggleComplete } = useContext(TodoContext);
+  const [clicked, setClicked] = useState(todo.isComplete);
+  const { toggleComplete, getColorDate } = useContext(TodoContext);
   const navigate = useNavigate();
+  console.log(todo);
   return (
     <TodoCard
       className="todo-card"
-      iscomplete={todo.isComplete ? '#e7f5ff' : 'white'}
+      clicked={clicked ? '#e7f5ff' : 'white'}
       onClick={() => {
         navigate(`./todo/${todo.id}`);
       }}
     >
       <TodoInfo className="todo-info">
         <InnerInfoContainer>
-          <Circle></Circle>
+          <Circle datecolor={getColorDate(todo)}></Circle>
           <h4 className="name">{todo.taskName}</h4>
         </InnerInfoContainer>
         <InnerInfoContainer>
@@ -47,8 +51,10 @@ const TodoItem = ({ todo }) => {
             />
           </SVG>
           <p className="due-date">
-            <span>Due Date:</span> {dateConversion(todo.dueDate)},{' '}
-            {timeConversion(todo.time)}
+            <LabelSpan>Due Date:</LabelSpan>{' '}
+            <DateSpan datecolor={getColorDate(todo)}>
+              {dateConversion(todo.dueDate)}, {timeConversion(todo.time)}
+            </DateSpan>
           </p>
         </InnerInfoContainer>
         <InnerInfoContainer>
@@ -67,7 +73,7 @@ const TodoItem = ({ todo }) => {
             />
           </SVG>
           <p className="priority">
-            <span>Priority: </span>
+            <LabelSpan>Priority: </LabelSpan>
             {todo.priorityLevel} {`(${todo.priority}/10)`}
           </p>
         </InnerInfoContainer>
@@ -87,14 +93,12 @@ const TodoItem = ({ todo }) => {
             />
           </FourArrowSVG>
           <p className="complexity">
-            <span>Complexity: </span>
+            <LabelSpan>Complexity: </LabelSpan>
             {todo.complexityLevel} {`(${todo.complexity}/10)`}
           </p>
         </InnerInfoContainer>
         <TagsContainer>
-          {todo.tags.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
-          ))}
+          {todo.tags && todo.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
         </TagsContainer>
       </TodoInfo>
       <TodoBtnsContainer className="todo-btns-container">
@@ -126,6 +130,7 @@ const TodoItem = ({ todo }) => {
           onClick={(event) => {
             event.stopPropagation();
             toggleComplete(todo);
+            setClicked(!clicked);
           }}
         >
           <path

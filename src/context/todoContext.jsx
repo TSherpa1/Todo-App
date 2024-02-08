@@ -1,6 +1,6 @@
 import { useState, createContext, useEffect } from 'react';
 import { uid } from 'uid';
-import { convertDueDate } from '../utils/helperFunctions';
+import { convertDueDate, timeDifference } from '../utils/conversions';
 
 export const TodoContext = createContext();
 
@@ -21,7 +21,6 @@ export const TodoProvider = ({ children }) => {
   useEffect(() => {
     if (todos.length !== 0) {
       localStorage.setItem('todos', JSON.stringify(todos));
-      // console.log(todos);
     }
   }, [todos]);
 
@@ -135,6 +134,7 @@ export const TodoProvider = ({ children }) => {
       setTodosSubset([...todos]);
       return;
     }
+
     const newTodosSubset = [...todosSubset].sort((todo1, todo2) => {
       switch (sortType) {
         case 'Ascending Date':
@@ -154,6 +154,18 @@ export const TodoProvider = ({ children }) => {
     setTodosSubset([...newTodosSubset]);
   };
 
+  const getColorDate = (todo) => {
+    const difference = timeDifference(todo.dueDate);
+    if (difference < 1) {
+      return '#fd5353';
+    }
+    if (difference <= 3) {
+      return '#fe7e09';
+    } else {
+      return '#0096FF';
+    }
+  };
+
   const getTags = (todos) => {
     let tagsArray = [];
     if (todos.length !== 0) {
@@ -164,8 +176,8 @@ export const TodoProvider = ({ children }) => {
           }
         })
       );
-      return tagsArray;
     }
+    return tagsArray;
   };
 
   const filterCategory = (selectedTags) => {
@@ -206,6 +218,7 @@ export const TodoProvider = ({ children }) => {
         completeSubTask,
         repeatTodo,
         editTodo,
+        getColorDate,
       }}
     >
       {children}

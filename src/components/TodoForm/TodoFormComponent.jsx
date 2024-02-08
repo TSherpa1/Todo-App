@@ -30,6 +30,8 @@ const TodoFormComponent = ({ isEditing, todo }) => {
     isEditing ? todo.tags.toString() : ''
   );
   const [tags, setTags] = useState([]);
+  const [error, setError] = useState(false);
+  const [dateTimeError, setDateTimeError] = useState([]);
 
   const {
     addTodo,
@@ -92,7 +94,6 @@ const TodoFormComponent = ({ isEditing, todo }) => {
   };
 
   const convertTags = () => {
-    console.log(tagsInput);
     const convertedTags = tagsInput.split(',').map((tag) => tag.trim());
     return convertedTags;
   };
@@ -105,7 +106,6 @@ const TodoFormComponent = ({ isEditing, todo }) => {
   };
 
   const handleEditSubTask = (subTaskName, id) => {
-    console.log('editing');
     const newSubTasks = editSubTask(subTaskName, id, subTasks);
     setSubTasks(newSubTasks);
   };
@@ -144,12 +144,30 @@ const TodoFormComponent = ({ isEditing, todo }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    //form validation check
+    const inputs = [taskName, priority, complexity, dueDate, time];
+    const dateTimeErrorArray = [];
+    for (let i = 0; i < inputs.length; i++) {
+      if (inputs[i] === '' || inputs[i] === null) {
+        if (inputs[i] === time) {
+          dateTimeErrorArray.push('time');
+        }
+        if (inputs[i] === dueDate) {
+          dateTimeErrorArray.push('dueDate');
+        }
+        setDateTimeError(dateTimeErrorArray);
+        setError(true);
+        return;
+      }
+    }
     if (isEditing) {
       const newTask = createTask();
       editTodo(newTask);
+      setError(false);
     } else {
       const newTask = createTask();
       addTodo(newTask);
+      setError(false);
     }
     clearForm();
     navigate('/');
@@ -162,22 +180,28 @@ const TodoFormComponent = ({ isEditing, todo }) => {
         <FormTaskInput
           taskName={taskName}
           handleTaskInputChange={handleTaskInputChange}
+          error={error === true && taskName === ''}
         />
+
         <FormPriorityComplexity
           handleChange={handlePriorityChange}
           type="Priority"
           currentLevel={priority}
+          error={error === true && priority === null}
         />
         <FormPriorityComplexity
           handleChange={handleComplexityChange}
           type="Complexity"
           currentLevel={complexity}
+          error={error === true && complexity === null}
         />
         <FormTimeDate
           handleTimeChange={handleTimeChange}
           handleDateChange={handleDateChange}
           time={time}
           dueDate={dueDate}
+          error={error === true}
+          dateTimeError={dateTimeError}
         />
         <FormSubTaskInput
           handleSubTaskChange={handleSubTaskChange}

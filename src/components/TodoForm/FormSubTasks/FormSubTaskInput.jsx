@@ -20,6 +20,7 @@ const FormSubTaskInput = ({
     <SubTasksInputBtn>
       <SubTasksInput
         type="text"
+        placeholder="Enter subtasks"
         name="subtask-input"
         id="subtask-input"
         value={subTaskInput}

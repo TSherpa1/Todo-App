@@ -4,15 +4,21 @@ import {
   PriorityComplexityLabel,
   RadioBtnContainer,
   RadioBtnInput,
+  ErrorText,
 } from './FormPriorityComplexity.styles';
 
 const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const FormPriorityComplexity = ({ handleChange, type, currentLevel }) => {
+const FormPriorityComplexity = ({
+  handleChange,
+  type,
+  currentLevel,
+  error,
+}) => {
   return (
     <PriorityComplexityContainer className={`edit-${type}-container`}>
       <PriorityComplexityLabel htmlFor={type}>
-        {`Select ${type} Level`}
+        * {`Select ${type} Level`}
       </PriorityComplexityLabel>
       <RadioBtnContainer className="radio-btn">
         {levels.map((level) => (
@@ -30,6 +36,7 @@ const FormPriorityComplexity = ({ handleChange, type, currentLevel }) => {
           </Fragment>
         ))}
       </RadioBtnContainer>
+      <ErrorText>{error ? '* Required Field' : ''}</ErrorText>
     </PriorityComplexityContainer>
   );
 };

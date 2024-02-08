@@ -9,7 +9,7 @@ import {
 const DetailsComponent = ({ todo }) => {
   return (
     <DetailsContainer className="details-container">
-      <DetailsHeader />
+      <DetailsHeader todo={todo} />
       <DetailsCard todo={todo} />
       <DetailsSubTaskList subTasks={todo.subTasks} />
       <DetailsButtons todo={todo} />

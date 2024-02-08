@@ -1,14 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   TodoFormHeaderContainer,
   TodoFormHeaderText,
   BackToHomeBtn,
 } from './FormHeader.styles';
 
-const FormHeader = ({ isEditing }) => (
-  <TodoFormHeaderContainer className="add-todo-header-container">
-    <BackToHomeBtn className="back-to-home-btn">
-      <Link to="/">
+const FormHeader = ({ isEditing }) => {
+  const navigate = useNavigate();
+  return (
+    <TodoFormHeaderContainer className="add-todo-header-container">
+      <BackToHomeBtn
+        className="back-to-home-btn"
+        onClick={() => {
+          navigate('/');
+        }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -23,12 +29,13 @@ const FormHeader = ({ isEditing }) => (
             d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
           />
         </svg>
-      </Link>
-    </BackToHomeBtn>
-    <TodoFormHeaderText className="add-todo-header">
-      {isEditing ? 'Edit Task' : 'Add New Task'}
-    </TodoFormHeaderText>
-  </TodoFormHeaderContainer>
-);
+      </BackToHomeBtn>
+
+      <TodoFormHeaderText className="add-todo-header">
+        {isEditing ? 'Edit Task' : 'Add New Task'}
+      </TodoFormHeaderText>
+    </TodoFormHeaderContainer>
+  );
+};
 
 export default FormHeader;

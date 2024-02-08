@@ -33,3 +33,10 @@ export const RadioBtnInput = styled.button`
     cursor: pointer;
   }
 `;
+
+export const ErrorText = styled.label`
+  color: red;
+  margin-top: 10px;
+  margin-left: 4px;
+  position: relative;
+`;

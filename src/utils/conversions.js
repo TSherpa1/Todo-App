@@ -30,3 +30,16 @@ export const timeConversion = (time) => {
   time = `${hours}:${minutes < 10 ? '0' : ''}${minutes} ${AmOrPm}`;
   return time;
 };
+
+export const convertDueDate = (date) => {
+  return new Date(date).valueOf();
+};
+
+export const timeDifference = (dueDate) => {
+  const currentDate = new Date();
+  dueDate = new Date(dueDate);
+  const timeDifference = Math.round(
+    (dueDate.getTime() - currentDate.getTime()) / (1000 * 3600 * 24)
+  );
+  return timeDifference;
+};

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const TodoCard = styled.div`
-  background: ${(props) => (props.iscomplete ? '#e7f5ff' : 'white')};
-  background: ${(props) => props.iscomplete};
+  background: ${(props) => props.clicked};
   border-radius: 30px;
   width: 91%;
   display: flex;
@@ -30,7 +29,7 @@ export const TodoBtnsContainer = styled.div`
 `;
 
 export const TagsContainer = styled.ul`
-  display: flex;
+  display: ${(props) => (props.tagslength === 0 ? 'none' : 'flex')};
   gap: 15px;
 `;
 
@@ -38,22 +37,27 @@ export const InnerInfoContainer = styled.div`
   display: flex;
   position: relative;
   gap: 8px;
-  span {
-    color: gray;
-  }
   p {
     white-space: nowrap;
   }
 `;
 
 export const Circle = styled.div`
-  background: #e2ecf6;
+  // background: #e2ecf6;
+  background: ${(props) => props.datecolor};
   height: 18px;
   width: 18px;
   position: relative;
   border-radius: 50px;
 `;
 
+export const DateSpan = styled.span`
+  color: ${(props) => props.datecolor};
+`;
+
+export const LabelSpan = styled.span`
+  color: grey;
+`;
 export const SVG = styled.svg`
   height: 18px;
   width: 18px;

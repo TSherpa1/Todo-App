@@ -23,3 +23,10 @@ export const TaskTextInput = styled.input`
   padding: 10px 20px;
   font-size: 15px;
 `;
+
+export const ErrorText = styled.label`
+  color: red;
+  margin-top: 10px;
+  margin-left: 3px;
+  position: relative;
+`;

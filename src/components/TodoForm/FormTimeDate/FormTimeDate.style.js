@@ -51,4 +51,12 @@ export const FormDateInput = styled.input`
   position: relative;
   right: 10%;
   padding: 10px;
+  text-indent: 3px;
+`;
+
+export const ErrorText = styled.label`
+  color: red;
+  margin-top: 10px;
+  position: relative;
+  right: 33%;
 `;

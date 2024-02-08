@@ -10,6 +10,7 @@ const FormTagsInput = ({ tagsInput, handleTagsChange }) => (
     <TagsTextInput
       type="text"
       name="tag-input"
+      placeholder="Tag 1, Tag 2, ...."
       id="tag-input"
       value={tagsInput}
       onChange={handleTagsChange}

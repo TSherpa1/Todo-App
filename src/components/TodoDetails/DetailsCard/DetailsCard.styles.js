@@ -33,22 +33,26 @@ export const InnerInfoContainer = styled.div`
   display: flex;
   position: relative;
   gap: 10px;
-  span {
-    color: gray;
-  }
   p {
     white-space: nowrap;
   }
 `;
 
 export const Circle = styled.div`
-  background: #e2ecf6;
+  background: ${(props) => props.datecolor};
   height: 18px;
   width: 18px;
   position: relative;
   border-radius: 50px;
 `;
 
+export const DateSpan = styled.span`
+  color: ${(props) => props.datecolor};
+`;
+
+export const LabelSpan = styled.span`
+  color: grey;
+`;
 export const SVG = styled.svg`
   height: 18px;
   width: 18px;

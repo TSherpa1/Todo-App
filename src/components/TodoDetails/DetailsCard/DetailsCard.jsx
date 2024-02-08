@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { TodoContext } from '../../../context/todoContext';
 import {
   TodoDetailsCard,
   DetailsInfo,
@@ -6,9 +8,13 @@ import {
   FourArrowSVG,
   Circle,
   ProgressBarContainer,
+  LabelSpan,
+  DateSpan,
 } from './DetailsCard.styles';
 import { timeConversion, dateConversion } from '../../../utils/conversions';
+
 const DetailsCard = ({ todo }) => {
+  const { getColorDate } = useContext(TodoContext);
   return (
     <TodoDetailsCard
       className="todo-details-card"
@@ -16,7 +22,7 @@ const DetailsCard = ({ todo }) => {
     >
       <DetailsInfo className="details-info">
         <InnerInfoContainer>
-          <Circle></Circle>
+          <Circle datecolor={getColorDate(todo)}></Circle>
           <h4 className="name">{todo.taskName}</h4>
         </InnerInfoContainer>
         <InnerInfoContainer>
@@ -35,8 +41,10 @@ const DetailsCard = ({ todo }) => {
             />
           </SVG>
           <p className="due-date">
-            <span>Due Date:</span> {dateConversion(todo.dueDate)},{' '}
-            {timeConversion(todo.time)}
+            <LabelSpan>Due Date:</LabelSpan>{' '}
+            <DateSpan datecolor={getColorDate(todo)}>
+              {dateConversion(todo.dueDate)}, {timeConversion(todo.time)}
+            </DateSpan>
           </p>
         </InnerInfoContainer>
         <InnerInfoContainer>
@@ -55,7 +63,7 @@ const DetailsCard = ({ todo }) => {
             />
           </SVG>
           <p className="priority">
-            <span>Priority: </span>
+            <LabelSpan>Priority: </LabelSpan>
             {todo.priorityLevel} {`(${todo.priority}/10)`}
           </p>
         </InnerInfoContainer>
@@ -75,7 +83,7 @@ const DetailsCard = ({ todo }) => {
             />
           </FourArrowSVG>
           <p className="complexity">
-            <span>Complexity: </span>
+            <LabelSpan>Complexity: </LabelSpan>
             {todo.complexityLevel} {`(${todo.complexity}/10)`}
           </p>
         </InnerInfoContainer>
