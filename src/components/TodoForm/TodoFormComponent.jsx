@@ -105,9 +105,11 @@ const TodoFormComponent = ({ isEditing, todo }) => {
 
   const handleAddSubtask = (event) => {
     event.preventDefault();
-    const newSubTasks = addSubTask(subTaskInput, taskId, subTasks);
-    setSubTasks(newSubTasks);
-    setSubTaskInput('');
+    if (subTaskInput !== '') {
+      const newSubTasks = addSubTask(subTaskInput, taskId, subTasks);
+      setSubTasks(newSubTasks);
+      setSubTaskInput('');
+    }
   };
 
   const handleEditSubTask = (subTaskName, id) => {
