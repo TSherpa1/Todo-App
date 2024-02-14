@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { SortTypes, CategoryTypes } from '..';
+import { SortTypes, CategoryTypes, PowerMode } from '..';
 import {
   TodoSortBtn,
   TodoSortContainer,
@@ -51,6 +51,7 @@ const TodoSort = () => {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6"
+            clicked={sortClicked}
           >
             <path
               strokeLinecap="round"
@@ -60,6 +61,9 @@ const TodoSort = () => {
           </ChevronIcon>
         </TodoSortBtn>
         <SortTypes sortingTypes={sortedTypes} clicked={sortClicked} />
+      </TodoSortInnerContainer>
+      <TodoSortInnerContainer>
+        <PowerMode />
       </TodoSortInnerContainer>
       <TodoSortInnerContainer>
         <TodoSortBtn
@@ -75,6 +79,7 @@ const TodoSort = () => {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6"
+            clicked={sortClicked}
           >
             <path
               strokeLinecap="round"

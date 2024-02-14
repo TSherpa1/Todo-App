@@ -92,8 +92,10 @@ export const TodoProvider = ({ children }) => {
     );
     return currentTodo;
   };
+
   const completeSubTask = (subTask) => {
     const currentTodo = getSubTaskTodo(subTask);
+
     currentTodo.subTasks.forEach((subTaskElement) => {
       if (subTaskElement.id === subTask.id) {
         subTaskElement.isComplete = !subTaskElement.isComplete;
@@ -108,18 +110,6 @@ export const TodoProvider = ({ children }) => {
       subTaskElement.isComplete = false;
     });
     setTodos([...todos]);
-  };
-
-  const getLevel = (level) => {
-    if (level < 3) {
-      return 'Low';
-    }
-    if (level > 3 && level <= 6) {
-      return 'Medium';
-    }
-    if (level > 6) {
-      return 'High';
-    }
   };
 
   const searchTodo = (todoName) => {
@@ -154,6 +144,36 @@ export const TodoProvider = ({ children }) => {
     setTodosSubset([...newTodosSubset]);
   };
 
+  const filterCategory = (selectedTags) => {
+    let filteredTodos = todos.length > 0 ? [...todos] : [];
+    if (selectedTags.length > 0) {
+      filteredTodos = [];
+      todos.map((todo) =>
+        todo.tags.map((tag) => {
+          if (selectedTags.includes(tag) && !filteredTodos.includes(todo)) {
+            filteredTodos.push(todo);
+          }
+        })
+      );
+      setTodosSubset(filteredTodos);
+    } else {
+      setTodosSubset(todos);
+    }
+  };
+
+  const powerModeSort = () => {
+    if (todosSubset.length === 1) {
+      setTodosSubset(todos);
+      return;
+    }
+    const sortedTodos = [...todosSubset].sort((todo1, todo2) => {
+      return (
+        todo2.complexity + todo2.priority - (todo1.complexity + todo1.priority)
+      );
+    });
+    setTodosSubset([...[sortedTodos[0]]]);
+  };
+
   const getColorDate = (todo) => {
     const difference = timeDifference(todo.dueDate);
     if (difference < 1) {
@@ -180,23 +200,27 @@ export const TodoProvider = ({ children }) => {
     return tagsArray;
   };
 
-  const filterCategory = (selectedTags) => {
-    let filteredTodos = todos.length > 0 ? [...todos] : [];
-    if (selectedTags.length > 0) {
-      filteredTodos = [];
-      todos.map((todo) =>
-        todo.tags.map((tag) => {
-          if (selectedTags.includes(tag) && !filteredTodos.includes(todo)) {
-            filteredTodos.push(todo);
-          }
-        })
-      );
-      setTodosSubset(filteredTodos);
-    } else {
-      setTodosSubset(todos);
+  const getLevel = (level) => {
+    console.log(level);
+    if (level < 3) {
+      return 'Low';
+    }
+    if (level >= 3 && level <= 6) {
+      return 'Medium';
+    }
+    if (level > 6) {
+      return 'High';
     }
   };
 
+  const getProgress = (todo) => {
+    const totalSubtasks = todo.subTasks.length;
+    const completedSubtasks = todo.subTasks.filter(
+      (subTask) => subTask.isComplete === true
+    ).length;
+    const progress = Math.round((completedSubtasks / totalSubtasks) * 100);
+    return progress || 0;
+  };
   return (
     <TodoContext.Provider
       value={{
@@ -219,6 +243,8 @@ export const TodoProvider = ({ children }) => {
         repeatTodo,
         editTodo,
         getColorDate,
+        getProgress,
+        powerModeSort,
       }}
     >
       {children}

@@ -14,14 +14,16 @@ import {
   EditCompleteTodoSVG,
   LabelSpan,
   DateSpan,
+  LeftContainer,
 } from './TodoItem.styles';
 import { timeConversion, dateConversion } from '../../../utils/conversions';
+import { ProgressCircle } from '../';
 
 const TodoItem = ({ todo }) => {
   const [clicked, setClicked] = useState(todo.isComplete);
-  const { toggleComplete, getColorDate } = useContext(TodoContext);
+  const { toggleComplete, getColorDate, getProgress } = useContext(TodoContext);
   const navigate = useNavigate();
-  console.log(todo);
+
   return (
     <TodoCard
       className="todo-card"
@@ -53,7 +55,7 @@ const TodoItem = ({ todo }) => {
           <p className="due-date">
             <LabelSpan>Due Date:</LabelSpan>{' '}
             <DateSpan datecolor={getColorDate(todo)}>
-              {dateConversion(todo.dueDate)}, {timeConversion(todo.time)}
+              {dateConversion(todo.dueDate)}, {timeConversion(todo.time)},{' '}
             </DateSpan>
           </p>
         </InnerInfoContainer>
@@ -101,45 +103,52 @@ const TodoItem = ({ todo }) => {
           {todo.tags && todo.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
         </TagsContainer>
       </TodoInfo>
-      <TodoBtnsContainer className="todo-btns-container">
-        <EditCompleteTodoSVG
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6 edit-todo"
-          onClick={(event) => {
-            event.stopPropagation();
-            navigate(`./editTodo/${todo.id}`);
-          }}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
-          />
-        </EditCompleteTodoSVG>
-        <EditCompleteTodoSVG
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6 toggle-complete-todo"
-          onClick={(event) => {
-            event.stopPropagation();
-            toggleComplete(todo);
-            setClicked(!clicked);
-          }}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m4.5 12.75 6 6 9-13.5"
-          />
-        </EditCompleteTodoSVG>
-      </TodoBtnsContainer>
+      <LeftContainer className="left-container">
+        <TodoBtnsContainer className="todo-btns-container">
+          <EditCompleteTodoSVG
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 edit-todo"
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate(`./editTodo/${todo.id}`);
+            }}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+            />
+          </EditCompleteTodoSVG>
+          <EditCompleteTodoSVG
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6 toggle-complete-todo"
+            onClick={(event) => {
+              event.stopPropagation();
+              toggleComplete(todo);
+              setClicked(!clicked);
+            }}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m4.5 12.75 6 6 9-13.5"
+            />
+          </EditCompleteTodoSVG>
+        </TodoBtnsContainer>
+        <ProgressCircle
+          circleWidth="100"
+          percent={getProgress(todo)}
+          color={getColorDate(todo)}
+        />
+      </LeftContainer>
     </TodoCard>
   );
 };

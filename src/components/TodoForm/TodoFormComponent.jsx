@@ -32,6 +32,7 @@ const TodoFormComponent = ({ isEditing, todo }) => {
   const [tags, setTags] = useState([]);
   const [error, setError] = useState(false);
   const [dateTimeError, setDateTimeError] = useState([]);
+  const [taskProgress, setTaskProgress] = useState(null);
 
   const {
     addTodo,
@@ -59,7 +60,8 @@ const TodoFormComponent = ({ isEditing, todo }) => {
         dueDate,
         time,
         subTasks,
-        tags: convertTags(),
+        tags: convertTags() || [],
+        taskProgress,
       };
       return editedTask;
     } else {
@@ -74,7 +76,8 @@ const TodoFormComponent = ({ isEditing, todo }) => {
         dueDate,
         time,
         subTasks,
-        tags: convertTags(),
+        tags: convertTags() || [],
+        taskProgress,
       };
       return newTask;
     }
@@ -94,8 +97,10 @@ const TodoFormComponent = ({ isEditing, todo }) => {
   };
 
   const convertTags = () => {
-    const convertedTags = tagsInput.split(',').map((tag) => tag.trim());
-    return convertedTags;
+    if (tagsInput !== '') {
+      const convertedTags = tagsInput.split(',').map((tag) => tag.trim());
+      return convertedTags;
+    }
   };
 
   const handleAddSubtask = (event) => {
@@ -175,7 +180,12 @@ const TodoFormComponent = ({ isEditing, todo }) => {
 
   return (
     <TodoFormContainer className="todo-form-container">
-      <TodoForm className="todo-form">
+      <TodoForm
+        className="todo-form"
+        onKeyDown={(event) => {
+          event.key === 'Enter' && event.preventDefault();
+        }}
+      >
         <FormHeader isEditing={isEditing} />
         <FormTaskInput
           taskName={taskName}

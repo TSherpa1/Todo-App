@@ -12,9 +12,10 @@ import {
   DateSpan,
 } from './DetailsCard.styles';
 import { timeConversion, dateConversion } from '../../../utils/conversions';
+import { ProgressBar } from '../';
 
 const DetailsCard = ({ todo }) => {
-  const { getColorDate } = useContext(TodoContext);
+  const { getColorDate, getProgress } = useContext(TodoContext);
   return (
     <TodoDetailsCard
       className="todo-details-card"
@@ -88,7 +89,12 @@ const DetailsCard = ({ todo }) => {
           </p>
         </InnerInfoContainer>
       </DetailsInfo>
-      <ProgressBarContainer></ProgressBarContainer>
+      <ProgressBarContainer>
+        <ProgressBar
+          percentage={getProgress(todo)}
+          color={getColorDate(todo)}
+        />
+      </ProgressBarContainer>
     </TodoDetailsCard>
   );
 };

@@ -5,6 +5,7 @@ export const TodoDetailsCard = styled.div`
   border-radius: 30px;
   width: 91%;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 20px;
   height: 220px;
@@ -81,4 +82,6 @@ export const ArrowUpSvg = styled.svg`
   bottom: 1px;
 `;
 
-export const ProgressBarContainer = styled.div``;
+export const ProgressBarContainer = styled.div`
+  width: 100%;
+`;

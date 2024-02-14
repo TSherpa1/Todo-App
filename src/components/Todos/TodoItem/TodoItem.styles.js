@@ -22,10 +22,10 @@ export const TodoInfo = styled.div`
   gap: 10px;
 `;
 export const TodoBtnsContainer = styled.div`
-  width: 30%;
-  gap: 10px;
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-evenly;
+  gap: 10px;
 `;
 
 export const TagsContainer = styled.ul`
@@ -94,12 +94,22 @@ export const Tag = styled.li`
 `;
 
 export const EditCompleteTodoSVG = styled.svg`
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
   background: #e2ecf6;
   padding: 8px;
   border-radius: 50px;
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const LeftContainer = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: spce-between;
+  align-items: center;
+  position: relative;
+  left: 20px;
 `;
