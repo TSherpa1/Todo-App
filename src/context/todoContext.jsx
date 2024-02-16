@@ -201,7 +201,6 @@ export const TodoProvider = ({ children }) => {
   };
 
   const getLevel = (level) => {
-    console.log(level);
     if (level < 3) {
       return 'Low';
     }
